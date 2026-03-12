@@ -1,0 +1,181 @@
+import { useState, useEffect, useContext } from "react";
+import LoadApi from "../Loading/LoadApi";
+import { NavigationContext } from "../Layout/NavigationContext";
+import IconEnlarge from "/src/assets/svg/enlarge.svg";
+import IconClose from "/src/assets/svg/game-close.svg";
+
+const GameModal = (props) => {
+  const [url, setUrl] = useState(null);
+  const [iframeLoaded, setIframeLoaded] = useState(false);
+  const [isFullscreen, setIsFullscreen] = useState(false);
+  const { setShowFullDivLoading } = useContext(NavigationContext);
+
+  useEffect(() => {
+    if (props.gameUrl !== null && props.gameUrl !== "") {
+      if (props.isMobile) {
+        window.location.href = props.gameUrl;
+      } else {
+        document
+          .getElementsByClassName("game-view-container")[0]
+          .classList.remove("d-none");
+        setUrl(props.gameUrl);
+      }
+    }
+  }, [props.gameUrl, props.isMobile]);
+
+  // Cleanup when the modal unmounts or gameUrl changes to ensure the container is hidden
+  useEffect(() => {
+    return () => {
+      const el = document.getElementsByClassName("game-view-container")[0];
+      if (el) {
+        el.classList.add("d-none");
+        el.classList.remove("fullscreen");
+        el.classList.remove("with-background");
+      }
+      setUrl(null);
+      setIframeLoaded(false);
+      setIsFullscreen(false);
+    };
+  }, []);
+
+  const toggleFullScreen = () => {
+    const gameWindow = document.getElementsByClassName("game-window")[0];
+
+    if (!isFullscreen) {
+      // Enter fullscreen
+      if (gameWindow.requestFullscreen) {
+        gameWindow.requestFullscreen();
+      } else if (gameWindow.mozRequestFullScreen) {
+        gameWindow.mozRequestFullScreen();
+      } else if (gameWindow.webkitRequestFullscreen) {
+        gameWindow.webkitRequestFullscreen();
+      } else if (gameWindow.msRequestFullscreen) {
+        gameWindow.msRequestFullscreen();
+      }
+      const container = document.getElementsByClassName("game-view-container")[0];
+      if (container) container.classList.add("fullscreen");
+      setIsFullscreen(true);
+    } else {
+      // Exit fullscreen
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if (document.mozCancelFullScreen) {
+        document.mozCancelFullScreen();
+      } else if (document.webkitExitFullscreen) {
+        document.webkitExitFullscreen();
+      } else if (document.msExitFullscreen) {
+        document.msExitFullscreen();
+      }
+      const container = document.getElementsByClassName("game-view-container")[0];
+      if (container) container.classList.remove("fullscreen");
+      setIsFullscreen(false);
+    }
+  };
+
+  const exitHandler = () => {
+    if (
+      !document.fullscreenElement &&
+      !document.webkitIsFullScreen &&
+      !document.mozFullScreen &&
+      !document.msFullscreenElement
+    ) {
+      setIsFullscreen(false);
+      document
+        .getElementsByClassName("game-view-container")[0]
+        .classList.remove("fullscreen");
+    }
+  };
+
+  useEffect(() => {
+    document.addEventListener("fullscreenchange", exitHandler);
+    document.addEventListener("webkitfullscreenchange", exitHandler);
+    document.addEventListener("mozfullscreenchange", exitHandler);
+    document.addEventListener("MSFullscreenChange", exitHandler);
+
+    return () => {
+      document.removeEventListener("fullscreenchange", exitHandler);
+      document.removeEventListener("webkitfullscreenchange", exitHandler);
+      document.removeEventListener("mozfullscreenchange", exitHandler);
+      document.removeEventListener("MSFullscreenChange", exitHandler);
+    };
+  }, []);
+
+  const handleIframeLoad = () => {
+    if (url != null) {
+      document.getElementById("game-window-iframe").classList.remove("d-none");
+      setIframeLoaded(true);
+      setShowFullDivLoading(false);
+    }
+  };
+
+  const handleIframeError = () => {
+    console.error("Error loading game iframe");
+    setIframeLoaded(false);
+  }
+
+  // Render modal for all devices, including mobile, so user navigates inside modal
+
+  return (
+    <>
+      <div className="d-none game-view-container game-container">
+        <div className="game-window">
+          <div className="game-window-header">
+            <div className="game-window-header-item align-center full-window">
+              <span
+                className="icon-close"
+                onClick={() => { if (typeof props.onClose === 'function') props.onClose(); }}
+                title="Close"
+                role="button"
+                aria-label="Close game"
+              >
+                <img src={IconClose} />
+              </span>
+              {isFullscreen ? (
+                <span
+                  className="icon-originscreen"
+                  onClick={toggleFullScreen}
+                  title="Exit Fullscreen"
+                >
+                  <img src={IconEnlarge} />
+                </span>
+              ) : (
+                <span
+                  className="icon-fullscreen"
+                  onClick={toggleFullScreen}
+                  title="Fullscreen"
+                >
+                  <img src={IconEnlarge} />
+                </span>
+              )}
+            </div>
+          </div>
+
+          {iframeLoaded}
+
+          {iframeLoaded == false && (
+            <div
+              id="game-window-loading"
+              className="game-window-iframe-wrapper"
+            >
+              <LoadApi />
+            </div>
+          )}
+
+          <div
+            id="game-window-iframe"
+            className="game-window-iframe-wrapper d-none"
+          >
+            <iframe
+              allow="camera;microphone;fullscreen *"
+              src={url}
+              onLoad={handleIframeLoad}
+              onError={handleIframeError}
+            ></iframe>
+          </div>
+        </div>
+      </div>
+    </>
+  );
+};
+
+export default GameModal;
