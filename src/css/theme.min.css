@@ -35659,8 +35659,8 @@ html.landing-04 {
     }
 }
 
-.home-section-module .home-section-module-1 .swiper-container .swiper-button-prev,
-.home-section-module .home-section-module-1 .swiper-container .swiper-button-next {
+.home-section-module .home-section-module-1 .swiper-button-prev,
+.home-section-module .home-section-module-1 .swiper-button-next {
     background-image: none !important;
     width: auto;
     height: auto;
@@ -35673,15 +35673,15 @@ html.landing-04 {
     transition: 0.15s;
 }
 
-.home-section-module .home-section-module-1 .swiper-container .swiper-button-prev::after,
-.home-section-module .home-section-module-1 .swiper-container .swiper-button-next::after {
+.home-section-module .swiper-container .swiper-button-prev::after,
+.home-section-module .swiper-container .swiper-button-next::after {
     display: none;
 }
 
-.home-section-module .home-section-module-1 .swiper-container .swiper-button-prev:hover,
-.home-section-module .home-section-module-1 .swiper-container .swiper-button-prev:focus,
-.home-section-module .home-section-module-1 .swiper-container .swiper-button-next:hover,
-.home-section-module .home-section-module-1 .swiper-container .swiper-button-next:focus {
+.home-section-module .swiper-container .swiper-button-prev:hover,
+.home-section-module .swiper-container .swiper-button-prev:focus,
+.home-section-module .swiper-container .swiper-button-next:hover,
+.home-section-module .swiper-container .swiper-button-next:focus {
     opacity: 0.8;
 }
 

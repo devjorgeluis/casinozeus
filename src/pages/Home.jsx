@@ -518,7 +518,7 @@ const Home = () => {
 
   return (
     <>
-      {/* {showLoginModal && (
+      {showLoginModal && (
         <LoginModal
           isOpen={showLoginModal}
           onClose={() => setShowLoginModal(false)}
@@ -824,7 +824,7 @@ const Home = () => {
         tags={tags}
         categories={categories}
         selectedCategoryIndex={selectedCategoryIndex}
-      /> */}
+      />
     </>
   );
 };
