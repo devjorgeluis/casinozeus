@@ -1,10 +1,10 @@
 import { useEffect, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { AppContext } from "../../AppContext";
-import ImgHome from "/src/assets/svg/home.svg";
-import ImgCasino from "/src/assets/svg/casino.svg";
-import ImgLiveCasino from "/src/assets/svg/casino-vivo.svg";
-import ImgSports from "/src/assets/img/deporte.webp";
+// import ImgHome from "/src/assets/svg/home.svg";
+// import ImgCasino from "/src/assets/svg/casino.svg";
+// import ImgLiveCasino from "/src/assets/svg/casino-vivo.svg";
+// import ImgSports from "/src/assets/img/deporte.webp";
 
 const Sidebar = ({
     isLogin,
@@ -36,13 +36,13 @@ const Sidebar = ({
     const isSlotsOnlyMode = isSlotsOnly === "true" || isSlotsOnly === true;
     const menuItems = !isSlotsOnlyMode
         ? [
-            { id: "home", name: "Inicio", icon: ImgHome, href: "/" },
-            { id: "casino", name: "Casino", icon: ImgCasino, href: "/casino" },
-            { id: "live-casino", name: "Casino en vivo", icon: ImgLiveCasino, href: "/live-casino" },
-            { id: "sports", name: "Deportes", icon: ImgSports, href: "/sports" },
+            // { id: "home", name: "Inicio", icon: ImgHome, href: "/" },
+            // { id: "casino", name: "Casino", icon: ImgCasino, href: "/casino" },
+            // { id: "live-casino", name: "Casino en vivo", icon: ImgLiveCasino, href: "/live-casino" },
+            // { id: "sports", name: "Deportes", icon: ImgSports, href: "/sports" },
         ]
         : [
-            { id: "casino", name: "Casino", icon: ImgCasino, href: "/casino" }
+            // { id: "casino", name: "Casino", icon: ImgCasino, href: "/casino" }
         ];
 
     return (

@@ -1,8 +1,8 @@
 import { useState, useEffect, useContext } from "react";
 import LoadApi from "../Loading/LoadApi";
 import { NavigationContext } from "../Layout/NavigationContext";
-import IconEnlarge from "/src/assets/svg/enlarge.svg";
-import IconClose from "/src/assets/svg/game-close.svg";
+// import IconEnlarge from "/src/assets/svg/enlarge.svg";
+// import IconClose from "/src/assets/svg/game-close.svg";
 
 const GameModal = (props) => {
   const [url, setUrl] = useState(null);
@@ -128,7 +128,7 @@ const GameModal = (props) => {
                 role="button"
                 aria-label="Close game"
               >
-                <img src={IconClose} />
+                {/* <img src={IconClose} /> */}
               </span>
               {isFullscreen ? (
                 <span
@@ -136,7 +136,7 @@ const GameModal = (props) => {
                   onClick={toggleFullScreen}
                   title="Exit Fullscreen"
                 >
-                  <img src={IconEnlarge} />
+                  {/* <img src={IconEnlarge} /> */}
                 </span>
               ) : (
                 <span
@@ -144,7 +144,7 @@ const GameModal = (props) => {
                   onClick={toggleFullScreen}
                   title="Fullscreen"
                 >
-                  <img src={IconEnlarge} />
+                  {/* <img src={IconEnlarge} /> */}
                 </span>
               )}
             </div>

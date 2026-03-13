@@ -23,13 +23,13 @@ let selectedGameName = null;
 let selectedGameImg = null;
 let pageCurrent = 0;
 
-import ImgCategoryHome from "/src/assets/svg/lobby.svg";
-import ImgCategoryPopular from "/src/assets/svg/new.svg";
-import ImgCategoryBlackjack from "/src/assets/svg/jackpots.svg";
-import ImgCategoryRoulette from "/src/assets/svg/roulette.svg";
-import ImgCategoryCrash from "/src/assets/svg/crash.svg";
-import ImgCategoryMegaways from "/src/assets/svg/megaways.svg";
-import Img777 from "/src/assets/svg/777.svg";
+// import ImgCategoryHome from "/src/assets/svg/lobby.svg";
+// import ImgCategoryPopular from "/src/assets/svg/new.svg";
+// import ImgCategoryBlackjack from "/src/assets/svg/jackpots.svg";
+// import ImgCategoryRoulette from "/src/assets/svg/roulette.svg";
+// import ImgCategoryCrash from "/src/assets/svg/crash.svg";
+// import ImgCategoryMegaways from "/src/assets/svg/megaways.svg";
+// import Img777 from "/src/assets/svg/777.svg";
 
 const Home = () => {
   const { contextData } = useContext(AppContext);
@@ -129,18 +129,18 @@ const Home = () => {
     const isSlotsOnlyFalse = isSlotsOnly === false || isSlotsOnly === "false";
     let tmpTags = isSlotsOnlyFalse
       ? [
-        { name: "Lobby", code: "home", image: ImgCategoryHome },
-        { name: "Hot", code: "hot", image: ImgCategoryPopular },
-        { name: "Jokers", code: "joker", image: ImgCategoryBlackjack },
-        { name: "Ruletas", code: "roulette", image: ImgCategoryRoulette },
-        { name: "Crash", code: "arcade", image: ImgCategoryCrash },
-        { name: "Megaways", code: "megaways", image: ImgCategoryMegaways },
+        // { name: "Lobby", code: "home", image: ImgCategoryHome },
+        // { name: "Hot", code: "hot", image: ImgCategoryPopular },
+        // { name: "Jokers", code: "joker", image: ImgCategoryBlackjack },
+        // { name: "Ruletas", code: "roulette", image: ImgCategoryRoulette },
+        // { name: "Crash", code: "arcade", image: ImgCategoryCrash },
+        // { name: "Megaways", code: "megaways", image: ImgCategoryMegaways },
       ]
       : [
-        { name: "Lobby", code: "home", image: ImgCategoryHome },
-        { name: "Hot", code: "hot", image: ImgCategoryPopular },
-        { name: "Jokers", code: "joker", image: ImgCategoryBlackjack },
-        { name: "Megaways", code: "megaways", image: ImgCategoryMegaways },
+        // { name: "Lobby", code: "home", image: ImgCategoryHome },
+        // { name: "Hot", code: "hot", image: ImgCategoryPopular },
+        // { name: "Jokers", code: "joker", image: ImgCategoryBlackjack },
+        // { name: "Megaways", code: "megaways", image: ImgCategoryMegaways },
       ];
 
     setTags(tmpTags);
@@ -557,7 +557,7 @@ const Home = () => {
                       <div className="boton-brands">
                         <div className="boton-brands">
                           <button onClick={() => setShowFilterModal(true)}>
-                            <img src={Img777} alt="Proveedores" />
+                            {/* <img src={Img777} alt="Proveedores" /> */}
                             {" "}Proveedores
                           </button>
                         </div>
