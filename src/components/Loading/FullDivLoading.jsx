@@ -14,7 +14,7 @@ const FullDivLoading = (props) => {
 
     return (
         <div id="holds-the-iframe" className="holds-the-iframe d-none">
-            <img src={ImgLoader} />
+            {/* <img src={ImgLoader} /> */}
         </div>
     );
 };
