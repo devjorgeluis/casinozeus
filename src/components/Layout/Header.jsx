@@ -5,6 +5,12 @@ import Sidebar from "./Sidebar";
 import ImgLogo from "/src/assets/svg/logo.svg";
 import ImgSupport from "/src/assets/svg/support-black.svg";
 
+import ImgHome from "/src/assets/svg/home.svg";
+import ImgCasino from "/src/assets/svg/casino.svg";
+import ImgLiveCasino from "/src/assets/svg/live-casino.svg";
+import ImgSports from "/src/assets/svg/sports.svg";
+import ImgLiveSports from "/src/assets/svg/live-sports.svg";
+
 const Header = ({
     isLogin,
     isMobile,
@@ -26,14 +32,14 @@ const Header = ({
     const [showSidebar, setShowSidebar] = useState(false);
 
     const navItems = isSlotsOnly === "false" ? [
-        { path: ["/", "/home"], label: "INICIO" },
-        { path: ["/casino"], label: "CASINO" },
-        { path: ["/live-casino"], label: "CASINO EN VIVO" },
-        { path: ["/sports"], label: "DEPORTES" },
-        { path: ["/live-sports"], label: "DEPORTES EN VIVO" }
+        { path: ["/", "/home"], label: "INICIO", image: ImgHome },
+        { path: ["/casino"], label: "CASINO", image: ImgCasino },
+        { path: ["/live-casino"], label: "CASINO EN VIVO", image: ImgLiveCasino },
+        { path: ["/sports"], label: "DEPORTES", image: ImgSports },
+        { path: ["/live-sports"], label: "DEPORTES EN VIVO", image: ImgLiveSports }
     ] : [
-        { path: ["/", "/home"], label: "INICIO" },
-        { path: ["/casino"], label: "CASINO" }
+        { path: ["/", "/home"], label: "INICIO", image: ImgHome },
+        { path: ["/casino"], label: "CASINO", image: ImgCasino }
     ];
 
     const isActive = (paths) => {
@@ -73,213 +79,109 @@ const Header = ({
 
     return (
         <>
-            {
-                isMobile ?
-                    <nav id="mainHeader" className="navbarCustom navbar-dark py-0">
-                        <div
-                            className="d-flex align-items-center justify-content-between p-1 py-1"
-                            style={{
-                                width: "100%",
-                                backgroundColor: "rgb(4, 7, 19)",
-                                fontFamily: '"Exo 2", sans-serif',
-                                minHeight: "50px"
-                            }}
-                        >
-                            <div style={{ width: "60%" }} onClick={() => navigate("/")}>
-                                <img src={ImgLogo} width="40%" alt="Logo" className="mx-2" />
-                            </div>
-
-                            <div className="d-flex align-items-center">
-                                {
-                                    isLogin ? <>
-                                        <button className="button-support" onClick={() => { openSupportModal(false); }}>
-                                            <img src={ImgSupport} />
-                                        </button>
-
-                                        <div className="user-info mx-1">
-                                            <div className="avatar px-2 py-1 pb-0">
-                                                <i className="fa fa-user"></i>
-                                            </div>
-                                        </div>
-
-                                        <div className="text-start" style={{ fontSize: "small" }}>
-                                            <span style={{ color: "white" }}>{contextData?.session?.user?.username}</span>
-                                            <br />
-                                            <span style={{ color: "white" }}>{formatBalance(userBalance)}</span>
-                                        </div>
-                                    </> : <>
-                                        <button className="button-support" onClick={() => { openSupportModal(false); }}>
-                                            <img src={ImgSupport} />
-                                        </button>
-                                        <div
-                                            className="btn mx-3 py-1 px-1 btn-outline"
-                                            style={{
-                                                fontSize: "11px",
-                                                cursor: "pointer",
-                                                fontWeight: "bold",
-                                                fontFamily: '"Exo 2", sans-serif'
-                                            }}
-                                            onClick={() => handleLoginClick()}
-                                        >
-                                            <span>INGRESAR</span>
-                                        </div>
-                                    </>
-                                }
-
-                                <div>
-                                    <span
-                                        className="position-relative me-1"
-                                        onClick={() => setShowSidebar(true)}
-                                        style={{ cursor: "pointer" }}
-                                    >
-                                        <span style={{ fontSize: "larger", color: "rgb(218, 65, 103)" }}>
-                                            <i className="fas fa-bars"></i>
-                                        </span>
-                                    </span>
-                                </div>
-                            </div>
-                        </div>
-                    </nav> :
-                    <nav
-                        className="navbar my-0 navbar-expand-lg bg-body-tertiary"
-                        style={{ backgroundColor: "rgb(4, 7, 19)", fontFamily: "'Exo 2', sans-serif" }}
-                    >
-                        <div className="container-fluid my-0">
-                            <div className="float-left" style={{ cursor: "pointer" }}>
-                                <img
-                                    src={ImgLogo}
-                                    width="90%"
-                                    alt="Zeus Casino Logo"
-                                    style={{ maxWidth: "170px", maxHeight: "45px" }}
-                                    onClick={() => navigate("/")}
-                                />
-                            </div>
-                            <div
-                                id="navbarText"
-                                style={{ width: "80%", display: "flex", justifyContent: "center", alignItems: "center" }}
-                            >
-                                <div id="menu-header">
-                                    <ul
-                                        className="nav nav-tabs"
-                                        style={{
-                                            "--background": "rgba(255, 255, 255, 0.08)",
-                                            "--color": "#da4167",
-                                            "--border": "2px solid #da4167"
-                                        }}
-                                    >
+            <header className="cs-header-19">
+                <div className="cs-header-top">
+                    <div className="container-fluid">
+                        <div className="row">
+                            <nav className="navbar navbar-expand-lg desktop-item">
+                                <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                                    <ul className="navbar-nav navbar-logo">
+                                        <li className="nav-item">
+                                            <a className="nav-link" onClick={() => navigate("/")}>
+                                                <img src={ImgLogo} alt="Site" title="Site" className="logo-header" />
+                                            </a>
+                                        </li>
+                                    </ul>
+                                    <ul className="nav navbar-nav navbar-right navbar-links">
                                         {navItems.map((item, idx) => (
-                                            <li key={idx} role="presentation" className="nav-item">
-                                                <button
-                                                    type="button"
-                                                    className={"nav-link text-center" + (isActive(item.path) ? " active" : "")}
+                                            <li key={idx} role="presentation" className="nav-item link">
+                                                <a
+                                                    className={"nav-link" + (isActive(item.path) ? " active" : "")}
                                                     style={{ textTransform: "uppercase" }}
                                                     onClick={() => navigate(Array.isArray(item.path) ? item.path[item.path.length - 1] : item.path)}
                                                 >
+                                                    <img src={item.image} className="image-icon mr-1" />
                                                     <span>{item.label}</span>
-                                                </button>
+                                                </a>
                                             </li>
                                         ))}
                                     </ul>
-                                </div>
-                            </div>
-                            {
-                                isLogin ? <div className="d-flex align-items-center">
-                                    <button className="button-support" onClick={() => { openSupportModal(false); }}>
-                                        <img src={ImgSupport} />
-                                    </button>
-                                    <div className="dropdown nav-item">
-                                        <div>
-                                            <div
-                                                className="btn-support"
-                                                style={{ background: "rgb(218, 65, 103) !important", color: "rgb(2, 15, 29)" }}
-                                            >
-                                                <i className="fas fa-comment fa-fw"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="nav-item mx-1" style={{ cursor: "pointer", color: "rgb(204, 204, 204)" }}>
-                                        <span className="pr-0 mx-1" style={{ fontWeight: 300, cursor: "pointer" }}>CRÉDITOS</span>
-                                        <span style={{ fontWeight: 800 }}>{formatBalance(userBalance)}</span>
-                                    </div>
-                                    <div className="user-info mx-1">
-                                        <div className="avatar px-1 py-1 pb-0">
-                                            <i className="fa fa-user fa-2x fa-inverse"></i>
-                                        </div>
-                                    </div>
-                                    <div className="dropdown mx-1" ref={dropdownRef}>
-                                        <button
-                                            type="button"
-                                            onClick={() => setDropdownOpen((s) => !s)}
-                                            aria-expanded={dropdownOpen}
-                                            className="btn btn-dark dropdown-toggle btn-sm"
-                                            style={{ borderRadius: "10px" }}
-                                        >
-                                            <span style={{ margin: "20px", fontWeight: 800 }}>{contextData?.session?.user?.username}</span>
+                                    <ul className="nav navbar-nav navbar-right options-user">
+                                        <button className="button-support" onClick={() => { openSupportModal(false); }}>
+                                            <img src={ImgSupport} />
                                         </button>
-                                        <ul className={"dropdown-menu dropdown-menu-lg-end" + (dropdownOpen ? " show" : "")}>
-                                            <li>
-                                                <a
-                                                    href="#"
-                                                    className="dropdown-item"
-                                                    onClick={() => { setDropdownOpen(false); handleMyProfileClick(); }}
-                                                >
-                                                    <i className="fa fa-database"></i> Mis datos
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a
-                                                    href="#"
-                                                    className="dropdown-item"
-                                                    onClick={() => { setDropdownOpen(false); handleMyProfileHistoryClick(); }}
-                                                >
-                                                    <i className="fa fa-history"></i> Historial de cuenta
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a
-                                                    className="dropdown-item"
-                                                    onClick={() => { setDropdownOpen(false); openSupportModal(true); }}
-                                                >
-                                                    <i className="fa fa-phone-flip"></i> Contactá a Tu Cajero
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="#" className="dropdown-item" onClick={handleLogoutClick}>
-                                                    <i className="fa fa-power-off"></i> Salir
-                                                </a>
-                                            </li>
+                                        {
+                                            isLogin ? <div className="nav-item nav-items-extra login">
+                                                <div className="user-info-balance">
+                                                    <span>{contextData?.session?.user?.username} </span>
+                                                    <span className="text-theme span-user-info-balance ml-1">${formatBalance(userBalance)}</span>
+                                                </div>
+                                                <button className="navbar-toggler show-menu-mobile d-flex" type="button">
+                                                    <span className="navbar-toggler-icon"></span>
+                                                </button>
+                                            </div> :
+                                                <div className="nav-item nav-items-extra no-login">
+                                                    <button className="btn btn-theme outline" onClick={handleLoginClick}>
+                                                        <span>Login</span>
+                                                    </button>
+                                                </div>
+                                        }
+                                    </ul>
+                                </div>
+                            </nav>
+                            <div className="cs-header-top-mobile">
+                                <a onClick={() => navigate("/")} className="d-flex mr-auto">
+                                    <img src={ImgLogo} alt="Site" title="Site" className="logo-header-mobile" />
+                                </a>
+                                <button className="button-support" onClick={() => { openSupportModal(false); }}>
+                                    <img src={ImgSupport} />
+                                </button>
+                                {
+                                    isLogin ? <div className="user-information">
+                                        <span>{contextData?.session?.user?.username} </span>
+                                        <span className="span-user-info-balance-mobile">${formatBalance(userBalance)}</span>
+                                    </div> :
+                                        <div className="btn btn-theme outline" onClick={handleLoginClick}>
+                                            <span>Login</span>
+                                        </div>
+                                }
+                                <button className="navbar-toggler show-menu-mobile" type="button">
+                                    <span className="navbar-toggler-icon"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className="menu-mobile">
+                    <div className="menu-container">
+                        <div className="menu">
+                            <div className="sections-header beauty-scroll">
+                                <div className="menu-item">
+                                    <div className="menu-navs">
+                                        <ul className="links">
+                                            {navItems.map((item, idx) => (
+                                                <li key={idx} role="presentation" className="nav-item link">
+                                                    <a
+                                                        className={"nav-link" + (isActive(item.path) ? " active" : "")}
+                                                        style={{ textTransform: "uppercase" }}
+                                                        onClick={() => navigate(Array.isArray(item.path) ? item.path[item.path.length - 1] : item.path)}
+                                                    >
+                                                        <img src={item.image} className="image-icon mr-1" />
+                                                        <span>{item.label}</span>
+                                                    </a>
+                                                </li>
+                                            ))}
                                         </ul>
                                     </div>
-                                </div> :
-                                <>
-                                    <button className="button-support" onClick={() => { openSupportModal(false); }}>
-                                        <img src={ImgSupport} />
-                                    </button>
-                                    <div
-                                        className="btn btn-sm text-end"
-                                        style={{
-                                            fontWeight: "bold",
-                                            fontSize: "small",
-                                            fontFamily: '"Exo 2", sans-serif',
-                                            backgroundColor: "rgb(218, 65, 103)",
-                                            color: "rgb(2, 15, 29)",
-                                            borderColor: "rgb(218, 65, 103)",
-                                            transition: "0.3s",
-                                            float: "right",
-                                        }}
-                                        onClick={handleLoginClick}
-                                    >
-                                        <span style={{ display: "table-cell", verticalAlign: "middle" }}>
-                                            INGRESAR
-                                        </span>
-                                    </div>
-                                </>
-                            }
+                                </div>
+                            </div>
                         </div>
-                    </nav>
-            }
+                    </div>
+                    <div className="close-menu-mobile"></div>
+                </div>
+            </header>
 
-            <Sidebar
+            {/* <Sidebar
                 isSlotsOnly={isSlotsOnly}
                 isLogin={isLogin}
                 show={showSidebar}
@@ -289,7 +191,7 @@ const Header = ({
                 handleMyProfileHistoryClick={handleMyProfileHistoryClick}
                 handleLogoutClick={handleLogoutClick}
                 openSupportModal={openSupportModal}
-            />
+            /> */}
         </>
     );
 };

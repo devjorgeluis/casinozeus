@@ -1,8 +1,15 @@
 import { createRoot } from 'react-dom/client'
 import AppContextProvider from './AppContext.jsx'
 
+import "./css/vendor.min.css"
+import "./css/swiper.css"
+import "./css/fa-pro.css"
+import "./css/animate.css"
+import "./css/theme.min.css"
+import "./css/theme-chalk.css"
 import './css/zeuscasino.css'
-import "./css/app.css"
+import './css/country.css'
+import './css/sport.css'
 
 import App from './App.jsx'
 
