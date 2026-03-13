@@ -10052,7 +10052,7 @@ header.dw-header-4 .dw-header-top .navbar.navbar-expand-lg .navbar-nav.navbar-ri
 
 header.dw-header-4 .dw-header-bottom {
     display: none;
-    background: #292929 url("../public/img/background-linea.png");
+    background: #292929;
     padding: 10px 0;
     margin-bottom: 10px;
 }
@@ -13011,7 +13011,7 @@ header.dw-header-7 .dw-mobile .dw-header-bottom {
     display: none;
     padding: 10px 0;
     margin-bottom: 10px;
-    background: #222 url("../public/img/background-linea.png");
+    background: #222;
 }
 
 header.dw-header-7 .dw-mobile .dw-header-bottom .user-mobile-data {
@@ -13921,7 +13921,7 @@ header.dw-header-8 .dw-mobile .dw-header-bottom {
     display: none;
     padding: 10px 0;
     margin-bottom: 10px;
-    background: #222 url("../public/img/background-linea.png");
+    background: #222;
 }
 
 header.dw-header-8 .dw-mobile .dw-header-bottom .user-mobile-data {
@@ -15888,7 +15888,7 @@ header.dw-header-10 .dw-mobile .dw-header-bottom {
     display: none;
     padding: 10px 0;
     margin-bottom: 10px;
-    background: #222 url("../public/img/background-linea.png");
+    background: #222;
 }
 
 header.dw-header-10 .dw-mobile .dw-header-bottom .user-mobile-data {
@@ -16462,7 +16462,7 @@ header.dw-header-11 .dw-header-top .navbar.navbar-expand-lg .navbar-nav.navbar-r
 
 header.dw-header-11 .dw-header-bottom {
     display: none;
-    background: #292929 url("../public/img/background-linea.png");
+    background: #292929;
     padding: 10px 0;
     margin-bottom: 10px;
 }
@@ -23646,7 +23646,6 @@ header.cs-header-19 .cs-header-top .navbar-toggler::before {
     content: url("../assets/svg/hamburger.svg");
     display: inline-block;
     transform: scale(0.8);
-    transform-origin: top left;
 }
 
 header.cs-header-19 .cs-header-top .navbar-toggler .navbar-toggler-icon {
@@ -24872,7 +24871,7 @@ html.html-footer-4 footer.footer-container-4 .footer-container {
     border-top-right-radius: 10px;
     height: 100%;
     margin: auto;
-    background: #292929 url("../public/img/background-linea.png");
+    background: #292929;
 }
 
 @media screen and (max-width: 767px) {
@@ -28638,7 +28637,6 @@ html.html-footer-15 footer.footer-cs .extras .dropdown .dropdown-menu {
 
 .dw-landing-01 .LandingPageContainer .StepsContainer {
     border: none;
-    background: url("../img/footer-bg.png") no-repeat 50%;
     background-size: cover;
     margin-top: 90px;
     padding: 50px;
@@ -28761,7 +28759,6 @@ html.html-footer-15 footer.footer-cs .extras .dropdown .dropdown-menu {
 
 .dw-landing-01 .PromoText .Form .CustomControl .custom-control-input:checked~.custom-control-label:after {
     filter: invert(1);
-    background-image: url("../img/check.svg");
 }
 
 .dw-landing-01 .PromoText .Form .CustomControl label {
@@ -31116,46 +31113,6 @@ html.landing-04 {
     }
 }
 
-@font-face {
-    font-family: "ProximaNova Black";
-    src: url(../../../../webfonts/ProximaNova-Black.0a447f1d8c7c4fab.otf) format("opentype");
-    font-weight: 200;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "ProximaNova Bold";
-    src: url(../../../../webfonts/ProximaNova-Bold.85e2ef83be05cb2d.otf) format("opentype");
-    font-weight: 200;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "ProximaNova Light";
-    src: url(../../../../webfonts/ProximaNova-Light.5bc35956b6aaec48.otf) format("opentype");
-    font-weight: 200;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "ProximaNova Regular";
-    src: url(../../../../webfonts/ProximaNova-Regular.f68460597dbfd4ac.otf) format("opentype");
-    font-weight: 200;
-    font-style: normal;
-    font-display: swap;
-}
-
-@font-face {
-    font-family: "ProximaNova Semibold";
-    src: url(../../../../webfonts/ProximaNova-Semibold.4ce555f565b723fa.otf) format("opentype");
-    font-weight: 200;
-    font-style: normal;
-    font-display: swap;
-}
-
 .vivo-landing-01 {
     font-family: "ProximaNova Regular";
 }
@@ -31272,15 +31229,6 @@ html.landing-04 {
     width: 100%;
 }
 
-.vivo-landing-01 #home {
-    background-image: url(../../../../img/24vivo/landing-crypto/cel_luna.png);
-    background-size: contain;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-position-y: -50px;
-    height: 650px;
-}
-
 .vivo-landing-01 #home .title-container {
     height: 70%;
     display: flex;
@@ -31354,18 +31302,6 @@ html.landing-04 {
     border-radius: 0;
 }
 
-.vivo-landing-01 #home .black-card {
-    background-image: url(../../../../img/24vivo/landing-crypto/black-card-02.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: 50% 50%;
-    min-height: 0;
-    border: none;
-    box-shadow: none;
-    width: 100%;
-    background-color: rgba(0, 0, 0, 0);
-    margin: 20px auto;
-}
 
 .vivo-landing-01 #home .black-card .card-body {
     flex: 1 1 auto;
@@ -31489,18 +31425,6 @@ html.landing-04 {
     margin: 0;
 }
 
-.vivo-landing-01 .presence-container {
-    background-image: url(../../../../img/24vivo/landing-crypto/bkg-staking.svg);
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-position: center bottom;
-    position: relative;
-    top: 0;
-    width: 100%;
-    padding: 50px;
-    height: 600px;
-}
-
 .vivo-landing-01 .presence-container #presence .card {
     border: #262626;
     background-color: #262626;
@@ -31564,14 +31488,6 @@ html.landing-04 {
     padding-top: 40px;
 }
 
-.vivo-landing-01 .how-to-container #how-to .mayor-bullet {
-    background-image: url(../../../../img/24vivo/landing-crypto/img_mayoristas.svg);
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: right center;
-    height: 430px;
-}
-
 .vivo-landing-01 .how-to-container #how-to .mayor-bullet .mayor-title {
     font-family: ProximaNova Bold;
     font-size: 40px;
@@ -31609,12 +31525,6 @@ html.landing-04 {
     padding-left: 10px;
     font-size: 18px;
     font-weight: lighter;
-}
-
-.vivo-landing-01 .contact-container {
-    background-image: url(../../../../img/24vivo/landing-crypto/bkg-moon.svg);
-    background-repeat: no-repeat;
-    background-size: cover;
 }
 
 .vivo-landing-01 .contact-container #contact {
@@ -31814,14 +31724,6 @@ html.landing-04 {
         display: none;
     }
 
-    .vivo-landing-01 #home #home-mobile {
-        background-image: url(../../../../img/24vivo/landing-crypto/cel_luna_mobile.png);
-        background-size: cover;
-        background-position: center center;
-        background-repeat: no-repeat;
-        height: 500px;
-    }
-
     .vivo-landing-01 #home .card {
         background-size: cover;
     }
@@ -31943,7 +31845,6 @@ html.landing-04 {
     }
 
     .vivo-landing-01 .how-to-container #how-to .img-mayor {
-        background-image: url(../../../../img/24vivo/landing-crypto/img_mayoristas.svg);
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center top;
@@ -33108,13 +33009,7 @@ html.landing-04 {
     -moz-box-orient: vertical;
     display: inline-block;
     vertical-align: middle;
-    *vertical-align: auto;
     position: relative;
-}
-
-.odometer.odometer-auto-theme,
-.odometer.odometer-theme-default {
-    *display: inline;
 }
 
 .odometer.odometer-auto-theme .odometer-digit,
@@ -33123,13 +33018,7 @@ html.landing-04 {
     -moz-box-orient: vertical;
     display: inline-block;
     vertical-align: middle;
-    *vertical-align: auto;
     position: relative;
-}
-
-.odometer.odometer-auto-theme .odometer-digit,
-.odometer.odometer-theme-default .odometer-digit {
-    *display: inline;
 }
 
 .odometer.odometer-auto-theme .odometer-digit .odometer-digit-spacer,
@@ -33138,13 +33027,7 @@ html.landing-04 {
     -moz-box-orient: vertical;
     display: inline-block;
     vertical-align: middle;
-    *vertical-align: auto;
     visibility: hidden;
-}
-
-.odometer.odometer-auto-theme .odometer-digit .odometer-digit-spacer,
-.odometer.odometer-theme-default .odometer-digit .odometer-digit-spacer {
-    *display: inline;
 }
 
 .odometer.odometer-auto-theme .odometer-digit .odometer-digit-inner,
@@ -34207,7 +34090,7 @@ html.landing-04 {
     text-align: center;
     overflow: hidden;
     box-shadow: 0 0 2px #888;
-    background: #292929 url("../public/img/background-linea.png");
+    background: #292929;
 }
 
 @media screen and (max-width: 991px) {
@@ -34251,7 +34134,7 @@ html.landing-04 {
     background-size: 130px;
     margin-bottom: 15px;
     box-shadow: 0 0 2px #888;
-    background: #292929 url("../public/img/background-linea.png");
+    background: #292929;
 }
 
 .dw-home-1 .home-nightsports .home-top .login-home.open-user {
@@ -34331,7 +34214,6 @@ html.landing-04 {
 
 .dw-home-1 .home-nightsports .home-featured .title-featured::before {
     content: "";
-    background: url("../public/img/pro-left.png") 50% no-repeat;
     position: absolute;
     top: calc(50% - 15px);
     left: calc(50% - 330px);
@@ -34349,7 +34231,6 @@ html.landing-04 {
 
 .dw-home-1 .home-nightsports .home-featured .title-featured::after {
     content: "";
-    background: url("../public/img/pro-right.png") 50% no-repeat;
     position: absolute;
     top: calc(50% - 15px);
     right: calc(50% - 330px);
@@ -39011,13 +38892,7 @@ html.landing-04 {
     -moz-box-orient: vertical;
     display: inline-block;
     vertical-align: middle;
-    *vertical-align: auto;
     position: relative;
-}
-
-.home-section-module .home-section-module-22 .JackpotsContainer .Jackpot .AmountContainer .odometer.odometer-auto-theme,
-.home-section-module .home-section-module-22 .JackpotsContainer .Jackpot .AmountContainer .odometer.odometer-theme-slot-machine {
-    *display: inline;
 }
 
 .home-section-module .home-section-module-22 .JackpotsContainer .Jackpot .AmountContainer .odometer.odometer-auto-theme .odometer-digit,
@@ -39026,13 +38901,7 @@ html.landing-04 {
     -moz-box-orient: vertical;
     display: inline-block;
     vertical-align: middle;
-    *vertical-align: auto;
     position: relative;
-}
-
-.home-section-module .home-section-module-22 .JackpotsContainer .Jackpot .AmountContainer .odometer.odometer-auto-theme .odometer-digit,
-.home-section-module .home-section-module-22 .JackpotsContainer .Jackpot .AmountContainer .odometer.odometer-theme-slot-machine .odometer-digit {
-    *display: inline;
 }
 
 .home-section-module .home-section-module-22 .JackpotsContainer .Jackpot .AmountContainer .odometer.odometer-auto-theme .odometer-digit .odometer-digit-spacer,
@@ -39041,13 +38910,7 @@ html.landing-04 {
     -moz-box-orient: vertical;
     display: inline-block;
     vertical-align: middle;
-    *vertical-align: auto;
     visibility: hidden;
-}
-
-.home-section-module .home-section-module-22 .JackpotsContainer .Jackpot .AmountContainer .odometer.odometer-auto-theme .odometer-digit .odometer-digit-spacer,
-.home-section-module .home-section-module-22 .JackpotsContainer .Jackpot .AmountContainer .odometer.odometer-theme-slot-machine .odometer-digit .odometer-digit-spacer {
-    *display: inline;
 }
 
 .home-section-module .home-section-module-22 .JackpotsContainer .Jackpot .AmountContainer .odometer.odometer-auto-theme .odometer-digit .odometer-digit-inner,
@@ -39201,7 +39064,6 @@ html.landing-04 {
     -moz-box-orient: vertical;
     display: inline-block;
     vertical-align: middle;
-    *vertical-align: auto;
     visibility: hidden;
 }
 
@@ -42085,7 +41947,7 @@ html.landing-04 {
     -ms-flex-align: center;
     align-items: center;
     text-align: center;
-    background: #252525 url("../public/img/bg-linea.png");
+    background: #252525;
     background-size: 230px !important;
     color: #eee;
     font-weight: 600;
@@ -45854,12 +45716,6 @@ html.landing-04 {
     }
 }
 
-@font-face {
-    font-family: Rabona;
-    font-weight: 400;
-    src: url("/joxi/rabona/fonts/RabonaRotate-Regular.otf") format("opentype");
-}
-
 .dw-casino-09 {
     position: relative;
     display: flex;
@@ -48077,12 +47933,6 @@ html.landing-04 {
     .dw-casino-11 .AllGames {
         grid-template-columns: repeat(3, 1fr);
     }
-}
-
-@font-face {
-    font-family: Rabona;
-    font-weight: 400;
-    src: url("/joxi/rabona/fonts/RabonaRotate-Regular.otf") format("opentype");
 }
 
 .dw-casino-12 {
@@ -64354,42 +64204,34 @@ html.landing-04 {
 }
 
 .form-templates-pure .stats-box.small.stat-profile-views {
-    background: url(../img/graph/stat/01.jpg) no-repeat 50%;
     background-size: cover;
 }
 
 .form-templates-pure .stats-box.small.stat-posts-created {
-    background: url(../img/graph/stat/02.jpg) no-repeat 50%;
     background-size: cover;
 }
 
 .form-templates-pure .stats-box.small.stat-reactions-received {
-    background: url(../img/graph/stat/03.jpg) no-repeat 50%;
     background-size: cover;
 }
 
 .form-templates-pure .stats-box.small.stat-comments-received {
-    background: url(../img/graph/stat/04.jpg) no-repeat 50%;
     background-size: cover;
 }
 
 .form-templates-pure .stats-box.stat-profile-views {
-    background: url(../img/graph/stat/01-big.png) no-repeat 50%;
     background-size: cover;
 }
 
 .form-templates-pure .stats-box.stat-posts-created {
-    background: url(../img/graph/stat/02-big.png) no-repeat 50%;
     background-size: cover;
 }
 
 .form-templates-pure .stats-box.stat-reactions-received {
-    background: url(../img/graph/stat/03-big.png) no-repeat 50%;
     background-size: cover;
 }
 
 .form-templates-pure .stats-box.stat-comments-received {
-    background: url(../img/graph/stat/04-big.png) no-repeat 50%;
     background-size: cover;
 }
 
@@ -64757,16 +64599,8 @@ html.landing-04 {
     position: relative;
 }
 
-.form-templates-pure .stats-decoration.secondary {
-    background: url(../img/graph/stat/05.png) no-repeat 100% 100% #1d2333;
-}
-
 .form-templates-pure .stats-decoration.secondary .stats-decoration-icon-wrap {
     background-color: #7750f8;
-}
-
-.form-templates-pure .stats-decoration.primary {
-    background: url(../img/graph/stat/06.png) no-repeat 100% 100% #1d2333;
 }
 
 .form-templates-pure .stats-decoration.primary .stats-decoration-icon-wrap {
@@ -64802,14 +64636,6 @@ html.landing-04 {
     height: 213px;
     padding: 46px 0 0;
     text-align: center;
-}
-
-.form-templates-pure .stats-decoration.v2.big.secondary {
-    background: url(../img/graph/stat/05-big.png) repeat-x bottom #1d2333;
-}
-
-.form-templates-pure .stats-decoration.v2.big.primary {
-    background: url(../img/graph/stat/06-big.png) repeat-x bottom #1d2333;
 }
 
 .form-templates-pure .stats-decoration.v2.big .stats-decoration-title {
@@ -65326,7 +65152,6 @@ html.landing-04 {
     padding-top: 34px;
     border-top-left-radius: 12px;
     border-top-right-radius: 12px;
-    background: url(../img/banner/banner-profile-stats.jpg) no-repeat 50%;
     background-size: cover;
 }
 
@@ -65427,12 +65252,10 @@ html.landing-04 {
 }
 
 .form-templates-pure .featured-stat-box.reactioner .featured-stat-box-cover {
-    background: url(../img/banner/banner-reaction.jpg) no-repeat 50%;
     background-size: cover;
 }
 
 .form-templates-pure .featured-stat-box.commenter .featured-stat-box-cover {
-    background: url(../img/banner/banner-commenter.jpg) no-repeat 50%;
     background-size: cover;
 }
 
@@ -65508,12 +65331,10 @@ html.landing-04 {
 }
 
 .form-templates-pure .achievement-box.secondary {
-    background: url(../img/achievement/banner/01.jpg) no-repeat 50%;
     background-size: cover;
 }
 
 .form-templates-pure .achievement-box.primary {
-    background: url(../img/achievement/banner/02.jpg) no-repeat 50%;
     background-size: cover;
 }
 
@@ -65584,7 +65405,6 @@ html.landing-04 {
     justify-content: center;
     width: 88px;
     height: 86px;
-    background: url(../img/badge/level-badge.png) no-repeat 50%;
 }
 
 .form-templates-pure .level-progress-badge .level-progress-badge-text,
@@ -65659,7 +65479,6 @@ html.landing-04 {
 }
 
 .form-templates-pure .account-stat-box.account-stat-active-users {
-    background: url(../img/graph/stat/07.png) no-repeat bottom #1d2333;
     background-size: contain;
 }
 
@@ -65668,7 +65487,6 @@ html.landing-04 {
 }
 
 .form-templates-pure .account-stat-box.account-stat-visits {
-    background: url(../img/graph/stat/08.png) no-repeat bottom #1d2333;
     background-size: contain;
 }
 
@@ -65677,7 +65495,6 @@ html.landing-04 {
 }
 
 .form-templates-pure .account-stat-box.account-stat-session-duration {
-    background: url(../img/graph/stat/09.png) no-repeat bottom #1d2333;
     background-size: contain;
 }
 
@@ -65686,7 +65503,6 @@ html.landing-04 {
 }
 
 .form-templates-pure .account-stat-box.account-stat-returning-visitors {
-    background: url(../img/graph/stat/10.png) no-repeat bottom #1d2333;
     background-size: contain;
 }
 
@@ -66121,7 +65937,6 @@ html.landing-04 {
 }
 
 .form-templates-pure .create-entity-box.v2 .create-entity-box-avatar {
-    background: url(../img/badge/badge-empty-02.png) no-repeat 50%;
     top: 36px;
 }
 
@@ -66155,7 +65970,6 @@ html.landing-04 {
     align-items: center;
     width: 100px;
     height: 110px;
-    background: url(../img/badge/badge-empty.png) no-repeat 50%;
     position: absolute;
     top: 16px;
     left: 50%;
@@ -67528,11 +67342,6 @@ html.landing-04 {
 .form-templates-pure .error-section {
     width: 100%;
     height: 100%;
-    background:
-        url(../img/landing/404-bg.png) no-repeat 0 0,
-        url(../img/landing/vikinger-logo.png) right 40px top 40px no-repeat,
-        url(../img/landing/dot-texture.png) repeat 0 0,
-        #161b28;
     background-size: contain, auto, auto;
     position: fixed;
     top: 0;
@@ -67607,7 +67416,7 @@ html.landing-04 {
 
 @media screen and (max-width: 1365px) {
     .form-templates-pure .error-section {
-        background: url(../img/landing/dot-texture.png) repeat 0 0 #161b28;
+        background: #161b28;
         background-size: auto;
         padding: 120px 0;
         position: static;
@@ -70573,40 +70382,17 @@ html.landing-04 {
     box-shadow: 0 0 40px 0 rgba(0, 0, 0, 0.06);
 }
 
-.form-templates-pure .product-category-box.category-all {
-    background:
-        url(../img/marketplace/category/01.png) no-repeat 100% 0,
-        linear-gradient(90deg, #7750f8, #84d2ff);
-}
 
 .form-templates-pure .product-category-box.category-all .product-category-box-tag {
     color: #8560ff;
-}
-
-.form-templates-pure .product-category-box.category-featured {
-    background:
-        url(../img/marketplace/category/02.png) no-repeat 100% 0,
-        linear-gradient(90deg, #006fb5, #3af0d4);
 }
 
 .form-templates-pure .product-category-box.category-featured .product-category-box-tag {
     color: #08b8f1;
 }
 
-.form-templates-pure .product-category-box.category-digital {
-    background:
-        url(../img/marketplace/category/03.png) no-repeat 100% 0,
-        linear-gradient(90deg, #009989, #4df960);
-}
-
 .form-templates-pure .product-category-box.category-digital .product-category-box-tag {
     color: #00e2cb;
-}
-
-.form-templates-pure .product-category-box.category-physical {
-    background:
-        url(../img/marketplace/category/04.png) no-repeat 100% 0,
-        linear-gradient(90deg, #2f9a3a, #e9fc49);
 }
 
 .form-templates-pure .product-category-box.category-physical .product-category-box-tag {
@@ -74587,7 +74373,6 @@ html.landing-04 {
     min-height: 160px;
     padding: 52px 60px 0 200px;
     border-radius: 12px;
-    background: url(../img/banner/banner-bg.png) no-repeat 50%;
     position: relative;
 }
 

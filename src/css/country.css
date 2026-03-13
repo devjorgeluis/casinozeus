@@ -1,8 +1,3 @@
-:root,
-:host {
-    --flagImageURL: url("flags.png?v2");
-}
-
 .cHFlag {
     --flagsCount: 244;
     --flagSize: 24.0px;
@@ -14,10 +9,6 @@
     height: var(--flagSize);
     background-size: var(--flagSize) calc(var(--flagsCount) * var(--flagSize));
     overflow: hidden;
-}
-
-.dg_flags_square .cHFlag {
-    --flagImageURL: url("flagsSquare.png?v2");
 }
 
 .f77 {

@@ -1,39 +1,8 @@
-:root,
-:host {
-    --imageSize: 24px;
-    --icoSize: 24px;
-    --sportImageURL: url("sportImages_opng");
-}
-
 [class*=imgSpr],
 [class^=imgSpr] {
     background-image: unset;
     background-size: initial;
     background-position: initial;
-}
-
-@font-face {
-    font-family: "digiSportIcons";
-    src: url("./400/sportsIcons.eot?v008");
-    src: url("./400/sportsIcons.eot?#iefix&v008") format("embedded-opentype"),
-        url("./400/sportsIcons.woff2?v008") format("woff2"),
-        url("./400/sportsIcons.woff?v008") format("woff"),
-        url("./400/sportsIcons.ttf?v008") format("truetype");
-    font-weight: normal;
-    font-style: normal;
-    font-display: block;
-}
-
-@font-face {
-    font-family: "digiSportIcons";
-    src: url("./100/sportsIcons.eot?v008");
-    src: url("./100/sportsIcons.eot?#iefix&v008") format("embedded-opentype"),
-        url("./100/sportsIcons.woff2?v008") format("woff2"),
-        url("./100/sportsIcons.woff?v008") format("woff"),
-        url("./100/sportsIcons.ttf?v008") format("truetype");
-    font-weight: 100;
-    font-style: normal;
-    font-display: block;
 }
 
 [class^="sport_front_icon-"]::before,
@@ -84,18 +53,6 @@
     display: none;
 }
 
-.dg_sport_images.dg_sport_images-dark {
-    --sportImageURL: url("sportImages_d.png");
-}
-
-.dg_sport_images.dg_sport_images-light {
-    --sportImageURL: url("sportImages_l.png");
-}
-
-.dg_sport_images,
-.dg_sport_images.dg_sport_images-stroke {
-    --sportImageURL: url("sportImages_o.png");
-}
 
 /*images or icons logick*/
 .dg_sport_icons [class^="imgSpr"]::after,
