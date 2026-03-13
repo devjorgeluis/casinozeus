@@ -1,211 +1,116 @@
-import { useEffect, useContext } from "react";
+import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { AppContext } from "../../AppContext";
-// import ImgHome from "/src/assets/svg/home.svg";
-// import ImgCasino from "/src/assets/svg/casino.svg";
-// import ImgLiveCasino from "/src/assets/svg/casino-vivo.svg";
-// import ImgSports from "/src/assets/img/deporte.webp";
+import ImgHome from "/src/assets/svg/home.svg";
+import ImgCasino from "/src/assets/svg/casino.svg";
+import ImgLiveCasino from "/src/assets/svg/live-casino.svg";
+import ImgSports from "/src/assets/svg/sports.svg";
+import ImgLiveSports from "/src/assets/svg/live-sports.svg";
 
 const Sidebar = ({
     isLogin,
     isSlotsOnly,
     show,
-    onClose,
-    userBalance,
     supportParent,
     handleLogoutClick,
-    handleMyProfileHistoryClick,
     openSupportModal
 }) => {
     const location = useLocation();
     const navigate = useNavigate();
-    const { contextData } = useContext(AppContext);
+    const pathname = location?.pathname ?? "";
 
     useEffect(() => {
         window.scrollTo(0, 0);
     }, [location.pathname]);
 
-    const formatBalance = (value) => {
-        const num = parseFloat(value);
-        return num.toLocaleString('de-DE', {
-            minimumFractionDigits: 2,
-            maximumFractionDigits: 2
-        });
-    };
-
     const isSlotsOnlyMode = isSlotsOnly === "true" || isSlotsOnly === true;
-    const menuItems = !isSlotsOnlyMode
+    const navItems = !isSlotsOnlyMode
         ? [
-            // { id: "home", name: "Inicio", icon: ImgHome, href: "/" },
-            // { id: "casino", name: "Casino", icon: ImgCasino, href: "/casino" },
-            // { id: "live-casino", name: "Casino en vivo", icon: ImgLiveCasino, href: "/live-casino" },
-            // { id: "sports", name: "Deportes", icon: ImgSports, href: "/sports" },
+            { path: ["/", "/home"], label: "INICIO", image: ImgHome },
+            { path: ["/casino"], label: "CASINO", image: ImgCasino },
+            { path: ["/live-casino"], label: "CASINO EN VIVO", image: ImgLiveCasino },
+            { path: ["/sports"], label: "DEPORTES", image: ImgSports },
+            { path: ["/live-sports"], label: "DEPORTES EN VIVO", image: ImgLiveSports }
         ]
         : [
-            // { id: "casino", name: "Casino", icon: ImgCasino, href: "/casino" }
+            { path: ["/", "/home"], label: "INICIO", image: ImgHome },
+            { path: ["/casino"], label: "CASINO", image: ImgCasino }
         ];
 
+    const isActive = (paths) => {
+        if (Array.isArray(paths)) {
+            return paths.some(p => p === "/" ? pathname === "/" : pathname.startsWith(p));
+        }
+        return pathname.startsWith(paths);
+    };        
+
     return (
-        <>
-            <div
-                id="offcanvasExample2"
-                className={"offcanvas offcanvas-end" + (show ? " show" : "")}
-                style={{
-                    width: "85%",
-                    fontFamily: '"Exo 2", sans-serif',
-                    color: "rgb(204, 204, 204)",
-                    visibility: show ? "visible" : "hidden",
-                    transform: show ? "translateX(0%)" : "translateX(100%)",
-                    transition: "transform 0.3s ease"
-                }}
-            >
-                <div
-                    className="mx-0 text-end p-2"
-                    style={{
-                        background: "rgb(4, 7, 19)",
-                        color: "rgb(204, 204, 204)"
-                    }}
-                >
-                    <button
-                        type="button"
-                        className="btn btn-sm text-reset"
-                        onClick={onClose}
-                    >
-                        <span style={{ color: "white", fontSize: "large" }}>
-                            <i className="fa fa-times"></i>
-                        </span>
-                    </button>
-                </div>
-
-                <div
-                    className="offcanvas-body p-2"
-                    style={{ position: "relative", background: "rgb(4, 7, 19)" }}
-                >
-                    {
-                        isLogin ? (
-                            <>
-                                <div className="d-flex" style={{ cursor: "pointer" }}>
-                                    <div className="user-info mx-1">
-                                        <div className="avatar px-2 py-1 pb-0">
-                                            <i className="fa fa-user"></i>
-                                        </div>
-                                    </div>
-
-                                    <div className="m-0 p-0 text-start" style={{ fontSize: "small" }}>
-                                        <span style={{ color: "white" }}>
-                                            {contextData?.session?.user?.username}
-                                        </span>
-                                        <br />
-                                        <span style={{ color: "white" }}>
-                                            {formatBalance(userBalance)}
-                                        </span>
-                                    </div>
+        <div className="menu-mobile" style={{ display: show ? "block" : "none" }}>
+            <div className="menu-container">
+                <div className="menu">
+                    <div className="sections-header beauty-scroll">
+                        <div className="menu-item">
+                            {
+                                isLogin && 
+                                <div className="sesion-buttons">
+                                    <a onClick={() => navigate("/profile")} className="btn btn-theme outline">
+                                        <i className="fa-solid fa-user"></i>
+                                        <span>Profile</span>
+                                    </a>
+                                    <a onClick={() => navigate("/profile#transaction")} className="btn btn-theme outline">
+                                        <i className="fa-solid fa-clock-rotate-left fa-fw"></i>
+                                        <span>Transactions</span>
+                                    </a>
+                                    <a onClick={() => navigate("/profile#history")} className="btn btn-theme outline">
+                                        <i className="fa-solid fa-clock-rotate-left fa-fw"></i>
+                                        <span>Historial de cuenta</span>
+                                    </a>
+                                    <a onClick={() => handleLogoutClick()} className="btn btn-theme outline">
+                                        <i className="fa-solid fa-right-from-bracket"></i>
+                                        <span>Logout</span>
+                                    </a>
                                 </div>
+                            }
 
-                                <div className="d-flex align-items-center">
-                                    <table className="table table-striped custom-table">
-                                        <tbody>
-                                            <tr>
-                                                <td style={{ textAlign: "center" }}>
-                                                    <a
-                                                        href="#"
-                                                        className="dropdown-item"
-                                                        style={{ color: "white" }}
-                                                        onClick={handleMyProfileHistoryClick}
-                                                    >
-                                                        <i className="fa fa-history"></i> Historial
-                                                    </a>
-                                                </td>
-
-                                                {supportParent && (
-                                                    <td style={{ textAlign: "center" }}>
-                                                        <a
-                                                            className="dropdown-item"
-                                                            style={{ color: "white" }}
-                                                            onClick={() => openSupportModal(true)}
-                                                        >
-                                                            <i className="fa fa-phone-flip"></i> Contactá a Tu Cajero
-                                                        </a>
-                                                    </td>
-                                                )}
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </>
-                        ) : (
-                            supportParent && (
-                                <div className="d-flex align-items-center">
-                                    <table className="table table-striped custom-table">
-                                        <tbody>
-                                            <tr>
-                                                <td style={{ textAlign: "center" }}>
-                                                    <a
-                                                        className="dropdown-item"
-                                                        style={{ color: "white" }}
-                                                        onClick={() => openSupportModal(true)}
-                                                    >
-                                                        <i className="fa fa-phone-flip"></i> Contactá a Tu Cajero
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                            )
-                        )
-                    }
-
-
-                    {menuItems.map((item, index) => (
-                        <div
-                            key={item.id}
-                            className={`py-3 ${index % 2 === 0 ? "table-striped" : ""}`}
-                            onClick={() => {
-                                navigate(item.href);
-                                if (typeof onClose === 'function') onClose();
-                            }}
-                            style={{ cursor: "pointer" }}
-                        >
-                            <div className="d-flex">
-                                <img
-                                    src={item.icon}
-                                    className="me-1"
-                                    style={{
-                                        width: "36px",
-                                        height: "36px",
-                                        maxHeight: "22px"
-                                    }}
-                                    alt={item.name}
-                                />
-                                <span
-                                    style={{
-                                        textTransform: "uppercase",
-                                        color: "rgb(204, 204, 204)"
-                                    }}
-                                >
-                                    {item.name}
-                                </span>
+                            <div className="menu-navs">
+                                <ul className="links">
+                                    {navItems.map((item, idx) => (
+                                        <li key={idx} className="nav-item link">
+                                            <a
+                                                className={"nav-link" + (isActive(item.path) ? " active" : "")}
+                                                style={{ textTransform: "uppercase" }}
+                                                onClick={() => navigate(Array.isArray(item.path) ? item.path[item.path.length - 1] : item.path)}
+                                            >
+                                                <img src={item.image} className="image-icon mr-1" />
+                                                <span>{item.label}</span>
+                                            </a>
+                                        </li>
+                                    ))}
+                                    {supportParent && (
+                                        <li className="nav-item link">
+                                            <a
+                                                className="nav-link"
+                                                onClick={() => openSupportModal(true)}
+                                            >
+                                                <i className="fa fa-phone-flip"></i> 
+                                                <span>Contactá a Tu Cajero</span>
+                                            </a>
+                                        </li>
+                                    )}
+                                </ul>
                             </div>
                         </div>
-                    ))}
+                    </div>
 
                     {
-                        isLogin && <div style={{ position: "absolute", bottom: "10px" }}>
-                            <a
-                                href="#"
-                                className="dropdown-item my-2"
-                                style={{ color: "white" }}
-                                onClick={handleLogoutClick}
-                            >
-                                <i className="fa fa-power-off fa-inverse"></i> Salir
-                            </a>
-                        </div>
+                        isLogin && 
+                        <a className="logout-button" onClick={() => handleLogoutClick()}>
+                            <i className="fa-solid fa-right-from-bracket"></i>
+                            <span>Logout</span>
+                        </a>
                     }
                 </div>
             </div>
-            {show && <div className="backdrop modal-backdrop fade show" onClick={onClose} />}
-        </>
+        </div>
     );
 };
 

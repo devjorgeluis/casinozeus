@@ -518,7 +518,7 @@ const Home = () => {
 
   return (
     <>
-      {showLoginModal && (
+      {/* {showLoginModal && (
         <LoginModal
           isOpen={showLoginModal}
           onClose={() => setShowLoginModal(false)}
@@ -557,7 +557,6 @@ const Home = () => {
                       <div className="boton-brands">
                         <div className="boton-brands">
                           <button onClick={() => setShowFilterModal(true)}>
-                            {/* <img src={Img777} alt="Proveedores" /> */}
                             {" "}Proveedores
                           </button>
                         </div>
@@ -689,7 +688,6 @@ const Home = () => {
                                   </h3>
                                 </div>
                                 <div className="home-item">
-                                  {/* Always show HotGameSlideshows first when on home page */}
                                   {tags[selectedCategoryIndex]?.code === 'home' && (
                                     <>
                                       {topGames.length > 0 && (
@@ -759,7 +757,6 @@ const Home = () => {
                                     </>
                                   )}
 
-                                  {/* Then show category games if available and NOT on home */}
                                   {tags[selectedCategoryIndex]?.code !== 'home' && firstFiveCategoriesGames.length > 0 && (
                                     firstFiveCategoriesGames.map((entry, catIndex) => {
                                       if (!entry || !entry.games) return null;
@@ -827,7 +824,7 @@ const Home = () => {
         tags={tags}
         categories={categories}
         selectedCategoryIndex={selectedCategoryIndex}
-      />
+      /> */}
     </>
   );
 };

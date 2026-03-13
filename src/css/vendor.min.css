@@ -6240,13 +6240,6 @@ a.badge-dark:focus {
   padding-left: 0;
   border-radius: 0;
 }
-.alert {
-  position: relative;
-  padding: 0.75rem 1.25rem;
-  margin-bottom: 1rem;
-  border: 1px solid transparent;
-  border-radius: 0.25rem;
-}
 .alert-heading {
   color: inherit;
 }
@@ -6285,17 +6278,6 @@ a.badge-dark:focus {
 }
 .alert-secondary .alert-link {
   color: rgb(32.5205150215, 35.2305579399, 37.6394849785);
-}
-.alert-success {
-  color: rgb(20.8, 86.84, 35.88);
-  background-color: rgb(212, 237.4, 217.8);
-  border-color: rgb(194.8, 230.36, 202.92);
-}
-.alert-success hr {
-  border-top-color: rgb(176.7059405941, 222.9540594059, 187.2665346535);
-}
-.alert-success .alert-link {
-  color: rgb(10.9449275362, 45.6950724638, 18.88);
 }
 .alert-info {
   color: rgb(11.96, 84.24, 95.68);
@@ -10724,9 +10706,6 @@ a.text-dark:hover {
 }
 .fa-star-o:before {
   content: "\F006";
-}
-.fa-user:before {
-  content: "\F007";
 }
 .fa-film:before {
   content: "\F008";

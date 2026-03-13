@@ -8,9 +8,6 @@ import Header from "./Header";
 import SupportModal from "../Modal/SupportModal";
 import Footer from "./Footer";
 import LoginModal from "../Modal/LoginModal";
-import VerifyAgeModal from "../Modal/VerifyAgeModal";
-import MyProfileModal from "../Modal/MyProfileModal";
-import MyProfileHistoryModal from "../Modal/MyProfileHistoryModal";
 import { NavigationContext } from "./NavigationContext";
 import FullDivLoading from "../Loading/FullDivLoading";
 
@@ -26,14 +23,11 @@ const Layout = () => {
     const [supportParent, setSupportParent] = useState("");
     const [isSlotsOnly, setIsSlotsOnly] = useState("");
     const [showLoginModal, setShowLoginModal] = useState(false);
-    const [showMyProfileModal, setShowMyProfileModal] = useState(false);
-    const [showMyProfileHistoryModal, setShowMyProfileHistoryModal] = useState(false);
     const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
     const [showMobileSearch, setShowMobileSearch] = useState(false);
     const [showSupportModal, setShowSupportModal] = useState(false);
     const [supportParentOnly, setSupportParentOnly] = useState(false);
     const [showFullDivLoading, setShowFullDivLoading] = useState(false);
-    const [showAgeModal, setShowAgeModal] = useState(false);
     const navigate = useNavigate();
 
     const toggleSidebar = () => {
@@ -41,14 +35,7 @@ const Layout = () => {
     };
 
     const location = useLocation();
-    const isSportsPage = location.pathname === "/sports" || location.pathname === "/live-sports";
-
-    useEffect(() => {
-        const isAgeVerified = localStorage.getItem("is-age-verified");
-        if (!isAgeVerified) {
-            setShowAgeModal(true);
-        }
-    });    
+    const isSportsPage = location.pathname === "/sports" || location.pathname === "/live-sports";  
 
     useEffect(() => {
         if (contextData.session != null) {
@@ -152,22 +139,9 @@ const Layout = () => {
         }, null);
     };
 
-    const handleMyProfileClick = () => {
-        setShowMyProfileModal(true);
-    };
-
-    const handleMyProfileHistoryClick = () => {
-        setShowMyProfileHistoryModal(true);
-    }
-
     const handleLoginSuccess = (balance) => {
         const parsed = balance ? parseFloat(balance) : 0;
         setUserBalance(Number.isFinite(parsed) ? parsed : 0);
-    };
-
-    const handleAgeVerifyConfirm = () => {
-        localStorage.setItem("is-age-verified", JSON.stringify({ value: true }));
-        setShowAgeModal(false);
     };
 
     const layoutContextValue = {
@@ -190,12 +164,7 @@ const Layout = () => {
             <NavigationContext.Provider
                 value={{ selectedPage, setSelectedPage, getPage, showFullDivLoading, setShowFullDivLoading }}
             >
-                <>
-                    <VerifyAgeModal
-                        isOpen={showAgeModal}
-                        onClose={() => setShowAgeModal(false)}
-                        onConfirm={handleAgeVerifyConfirm}
-                    />                
+                <>             
                     <FullDivLoading show={showFullDivLoading} />
                     {showLoginModal && (
                         <LoginModal
@@ -205,27 +174,12 @@ const Layout = () => {
                             onLoginSuccess={handleLoginSuccess}
                         />
                     )}
-                    {showMyProfileModal && (
-                        <MyProfileModal
-                            isOpen={showMyProfileModal}
-                            onClose={() => setShowMyProfileModal(false)}
-                        />
-                    )}
-                    {showMyProfileHistoryModal && (
-                        <MyProfileHistoryModal
-                            isOpen={showMyProfileHistoryModal}
-                            onClose={() => setShowMyProfileHistoryModal(false)}
-                        />
-                    )}
                     <Header
                         isLogin={isLogin}
-                        isMobile={isMobile}
                         isSlotsOnly={isSlotsOnly}
                         userBalance={userBalance}
                         handleLoginClick={handleLoginClick}
                         handleLogoutClick={handleLogoutClick}
-                        handleMyProfileClick={handleMyProfileClick}
-                        handleMyProfileHistoryClick={handleMyProfileHistoryClick}
                         supportParent={supportParent}
                         openSupportModal={openSupportModal}
                     />

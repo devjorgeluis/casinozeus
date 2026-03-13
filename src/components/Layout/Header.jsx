@@ -13,14 +13,11 @@ import ImgLiveSports from "/src/assets/svg/live-sports.svg";
 
 const Header = ({
     isLogin,
-    isMobile,
     isSlotsOnly,
     userBalance,
     supportParent,
     handleLoginClick,
     handleLogoutClick,
-    handleMyProfileClick,
-    handleMyProfileHistoryClick,
     openSupportModal
 }) => {
     const navigate = useNavigate();
@@ -116,7 +113,7 @@ const Header = ({
                                                     <span>{contextData?.session?.user?.username} </span>
                                                     <span className="text-theme span-user-info-balance ml-1">${formatBalance(userBalance)}</span>
                                                 </div>
-                                                <button className="navbar-toggler show-menu-mobile d-flex" type="button">
+                                                <button className="navbar-toggler show-menu-mobile d-flex" type="button" onClick={() => setShowSidebar(!showSidebar)}>
                                                     <span className="navbar-toggler-icon"></span>
                                                 </button>
                                             </div> :
@@ -145,53 +142,26 @@ const Header = ({
                                             <span>Login</span>
                                         </div>
                                 }
-                                <button className="navbar-toggler show-menu-mobile" type="button">
+                                <button className="navbar-toggler show-menu-mobile" type="button" onClick={() => setShowSidebar(!showSidebar)}>
                                     <span className="navbar-toggler-icon"></span>
                                 </button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div className="menu-mobile">
-                    <div className="menu-container">
-                        <div className="menu">
-                            <div className="sections-header beauty-scroll">
-                                <div className="menu-item">
-                                    <div className="menu-navs">
-                                        <ul className="links">
-                                            {navItems.map((item, idx) => (
-                                                <li key={idx} role="presentation" className="nav-item link">
-                                                    <a
-                                                        className={"nav-link" + (isActive(item.path) ? " active" : "")}
-                                                        style={{ textTransform: "uppercase" }}
-                                                        onClick={() => navigate(Array.isArray(item.path) ? item.path[item.path.length - 1] : item.path)}
-                                                    >
-                                                        <img src={item.image} className="image-icon mr-1" />
-                                                        <span>{item.label}</span>
-                                                    </a>
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div className="close-menu-mobile"></div>
-                </div>
-            </header>
 
-            {/* <Sidebar
-                isSlotsOnly={isSlotsOnly}
-                isLogin={isLogin}
-                show={showSidebar}
-                onClose={() => setShowSidebar(false)}
-                userBalance={userBalance}
-                supportParent={supportParent}
-                handleMyProfileHistoryClick={handleMyProfileHistoryClick}
-                handleLogoutClick={handleLogoutClick}
-                openSupportModal={openSupportModal}
-            /> */}
+                {
+                    showSidebar &&
+                    <Sidebar
+                        isSlotsOnly={isSlotsOnly}
+                        isLogin={isLogin}
+                        show={showSidebar}
+                        supportParent={supportParent}
+                        handleLogoutClick={handleLogoutClick}
+                        openSupportModal={openSupportModal}
+                    />
+                }
+            </header>
         </>
     );
 };
