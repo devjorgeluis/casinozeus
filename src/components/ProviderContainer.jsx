@@ -1,6 +1,11 @@
-import { useContext } from "react";
-import { AppContext } from "../AppContext";
+import { useContext, useCallback, useState, useEffect, useRef } from "react";
 import { useLocation } from "react-router-dom";
+import { AppContext } from "../AppContext";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+import "swiper/css";
+import "swiper/css/navigation";
 
 const ProviderContainer = ({
     categories,
@@ -9,6 +14,12 @@ const ProviderContainer = ({
     onOpenProviders
 }) => {
     const { contextData } = useContext(AppContext);
+    const swiperRef = useRef(null);
+    const prevRef = useRef(null);
+    const nextRef = useRef(null);
+    const [isPrevDisabled, setIsPrevDisabled] = useState(true);
+    const [isNextDisabled, setIsNextDisabled] = useState(false);
+
     const location = useLocation();
     const providers = categories.filter(cat => cat.code !== "home" && cat.code);
 
@@ -17,6 +28,55 @@ const ProviderContainer = ({
         onProviderSelect(provider);
     };
 
+    const handleNext = useCallback(() => {
+        if (!swiperRef.current?.swiper || isNextDisabled) return;
+        swiperRef.current.swiper.slideNext();
+    }, [isNextDisabled]);
+
+    const handlePrev = useCallback(() => {
+        if (!swiperRef.current?.swiper || isPrevDisabled) return;
+        swiperRef.current.swiper.slidePrev();
+    }, [isPrevDisabled]);
+
+    const updateNavigationState = useCallback(() => {
+        if (!swiperRef.current?.swiper) return;
+
+        const swiper = swiperRef.current.swiper;
+        setIsPrevDisabled(swiper.isBeginning);
+        setIsNextDisabled(swiper.isEnd);
+    }, []);
+
+    useEffect(() => {
+        if (!swiperRef.current?.swiper) return;
+
+        const swiper = swiperRef.current.swiper;
+
+        updateNavigationState();
+
+        swiper.on('slideChange', updateNavigationState);
+        swiper.on('reachBeginning', () => setIsPrevDisabled(true));
+        swiper.on('reachEnd', () => setIsNextDisabled(true));
+        swiper.on('fromEdge', () => {
+            setIsPrevDisabled(false);
+            setIsNextDisabled(false);
+        });
+
+        return () => {
+            swiper.off('slideChange', updateNavigationState);
+            swiper.off('reachBeginning', () => setIsPrevDisabled(true));
+            swiper.off('reachEnd', () => setIsNextDisabled(true));
+            swiper.off('fromEdge', () => {
+                setIsPrevDisabled(false);
+                setIsNextDisabled(false);
+            });
+        };
+    }, [updateNavigationState]);
+
+    useEffect(() => {
+        setTimeout(updateNavigationState, 100);
+    }, [providers, updateNavigationState]);
+
+
     const isSelected = (provider) => {
         const hashCode = location.hash.substring(1);
         return (selectedProvider && selectedProvider.id === provider.id) ||
@@ -24,41 +84,66 @@ const ProviderContainer = ({
     };
 
     return (
-        <div className="brands-container">
-            <div className="content">
-                <div className="ver-todos" role="button" tabIndex={0} onClick={(e) => { e.preventDefault(); if (onOpenProviders) onOpenProviders(); }} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (onOpenProviders) onOpenProviders(); } }}>
-                    <span>Ver todos</span>
+        <div className="providers-container desktop-item">
+            <div className="providers">
+                <div className="filter-all provider-item" role="button" tabIndex={0} onClick={(e) => { e.preventDefault(); if (onOpenProviders) onOpenProviders(); }} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); if (onOpenProviders) onOpenProviders(); } }}>
+                    <span className="name">Ver todos</span>
                 </div>
-                {providers.slice(0, 9).map((provider) => {
-                    const selected = isSelected(provider);
-                    const imageSrc = provider.image_local
-                        ? contextData.cdnUrl + provider.image_local
-                        : provider.image_url;
+                {
+                    providers.length > 15 &&
+                    <div
+                        className={`button-prev ${isPrevDisabled ? 'swiper-button-disabled' : ''}`}
+                        onClick={handlePrev}
+                    >
+                        <i className="fa-solid fa-circle-arrow-left"></i>
+                    </div>
+                }
+                <Swiper
+                    ref={swiperRef}
+                    modules={[Navigation]}
+                    spaceBetween={15}
+                    slidesPerView={15}
+                    navigation={{
+                        prevEl: prevRef.current,
+                        nextEl: nextRef.current,
+                    }}
+                    breakpoints={{
+                        320: { slidesPerView: 2.8 },
+                        768: { slidesPerView: 5.8 },
+                        1280: { slidesPerView: 15 },
+                    }}
+                >
+                    {
+                        providers.map((provider, idx) => {
+                            const imageUrl = provider.image_local
+                                ? `${contextData.cdnUrl}${provider.image_local}`
+                                : provider.image_url;
 
-                    return (
-                        <a
-                            key={provider.id}
-                            href="#"
-                            className={`item${selected ? " active" : ""}`}
-                            onClick={(e) => handleClick(e, provider)}
-                        >
-                            {imageSrc && (
-                                <>
-                                    <div className="image">
-                                        <img
-                                            src={imageSrc}
-                                            alt={provider.name}
-                                        />
+                            return (
+                                <SwiperSlide key={idx} className="swiper-slide">
+                                    <div key={idx} className={`provider-item ${isSelected(provider) ? 'Active' : ''}`} onClick={(e) => handleClick(e, provider)}>
+                                        <div className="provider-img">
+                                            {
+                                                imageUrl ? <img src={imageUrl} alt={provider?.name} /> : <>{provider?.name}</>
+                                            }
+                                        </div>
+                                        <span className="provider-name">{provider?.name}</span>
                                     </div>
-                                    <div className="provider-name">{provider.name}</div>
-                                </>
-                            )}
-                            {!imageSrc && (
-                                <span className="provider-name">{provider.name}</span>
-                            )}
-                        </a>
-                    );
-                })}
+                                </SwiperSlide>
+                            )
+                        })
+                    }
+                </Swiper>
+
+                {
+                    providers.length > 15 &&
+                    <div
+                        className={`button-next ${isNextDisabled ? 'swiper-button-disabled' : ''}`}
+                        onClick={handleNext}
+                    >
+                        <i className="fa-solid fa-circle-arrow-right"></i>
+                    </div>
+                }
             </div>
         </div>
     );

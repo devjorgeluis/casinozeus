@@ -16,7 +16,7 @@ const CategoryContainer = (props) => {
 
     return (
         <div className="categories-container">
-            <div className="content">
+            <div className="categories">
                 {props.categories.map((category, index) => (
                     <CategoryButton
                         key={category.id ?? category.code ?? index}
