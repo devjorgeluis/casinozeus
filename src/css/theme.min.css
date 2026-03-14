@@ -35925,10 +35925,11 @@ html.landing-04 {
 
 .home-section-module .home-section-module-4 .dw-home-featured-games .swiper-featured-games .swiper-container .swiper-slide {
     height: auto;
-    min-width: calc(10% - 10px);
     display: flex;
     text-align: center;
     width: fit-content;
+    aspect-ratio: 1;
+    margin-top: 10px !important;
 }
 
 .home-section-module .home-section-module-4 .dw-home-featured-games .swiper-featured-games .swiper-container .swiper-slide a {
@@ -35998,7 +35999,7 @@ html.landing-04 {
     }
 }
 
-.home-section-module .home-section-module-4 .dw-home-featured-games .swiper-featured-games .swiper-container .swiper-wrapper .swiper-slide {
+/* .home-section-module .home-section-module-4 .dw-home-featured-games .swiper-featured-games .swiper-container .swiper-wrapper .swiper-slide {
     max-width: 120px;
 }
 
@@ -36012,7 +36013,7 @@ html.landing-04 {
     .home-section-module .home-section-module-4 .dw-home-featured-games .swiper-featured-games .swiper-container .swiper-wrapper .swiper-slide {
         max-width: 96px;
     }
-}
+} */
 
 @media screen and (min-width: 992px) {
 

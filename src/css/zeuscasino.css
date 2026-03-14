@@ -2211,3 +2211,24 @@ body.swal2-toast-column .swal2-toast .swal2-validation-message {
         margin: 0;
     }
 }
+
+@media (min-width: 1200px) {
+    .swiper-grid > .swiper-wrapper {
+        display: flex;
+    }
+
+    .home-section-module .home-section-module-4 .dw-home-featured-games .swiper-featured-games .swiper-container .swiper-slide:nth-child(10),
+    .home-section-module .home-section-module-4 .dw-home-featured-games .swiper-featured-games .swiper-container .swiper-slide:nth-child(20) {
+        margin-right: 0 !important;
+    }
+}
+
+@media (max-width: 1200px) {
+    .home-section-module .home-section-module-4 .dw-home-featured-games .swiper-featured-games .swiper-container .swiper-wrapper {
+        flex-wrap: nowrap;
+    }
+
+    .home-section-module .home-section-module-4 .dw-home-featured-games .swiper-featured-games .swiper-container .swiper-slide {
+        margin-top: 0 !important;
+    }
+}

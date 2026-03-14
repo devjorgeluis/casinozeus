@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { AppContext } from '../AppContext';
 
-const GameCard = (props) => {
+const BigCameCard = (props) => {
     const { contextData } = useContext(AppContext);
 
     const handleGameClick = (e) => {
@@ -24,15 +24,18 @@ const GameCard = (props) => {
     };
 
     return (
-        <a className="game-opened-iframe" onClick={handleGameClick}>
-            <img src={props.imageSrc} alt={props.title} />
-            <div className="FavoriteContainer">
-                <div className="Favorite Centered">
-                    <i className="fa-regular fa-heart fa-fw"></i>
-                </div>
-            </div>
-        </a>
+        <div
+            className="swiper-slide"
+            onClick={handleGameClick}
+            data-game-id={props.id || props.gameId}
+        >
+            {
+                <a>
+                    <img src={props.imageSrc} alt={props.title}  />
+                </a>
+            }
+        </div>
     );
 };
 
-export default GameCard;
+export default BigCameCard;

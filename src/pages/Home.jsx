@@ -684,11 +684,6 @@ const Home = () => {
                         </div>
                       ) : (
                         <div className="home-section">
-                          <div className="home-title">
-                            <h3>
-                              <div>Los Mejores Juegos</div>
-                            </h3>
-                          </div>
                           <div className="home-item">
                             {tags[selectedCategoryIndex]?.code === 'home' && (
                               <>
@@ -728,7 +723,7 @@ const Home = () => {
                                   <HotGameSlideshow
                                     games={topCasino}
                                     name="casino"
-                                    title="Tragamonedas"
+                                    title="Casino"
                                     icon="cherry"
                                     link="/casino"
                                     onGameClick={(game) => {
