@@ -2232,3 +2232,18 @@ body.swal2-toast-column .swal2-toast .swal2-validation-message {
         margin-top: 0 !important;
     }
 }
+
+.home-section-module .home-section-module-1 .swiper-container .swiper-button-prev {
+    left: 2%;
+}
+
+.home-section-module .home-section-module-1 .swiper-container .swiper-button-next {
+    right: 2%;
+}
+
+
+@media (max-width: 480px) {
+    .home-section-module .home-section-module-1 .swiper-button-prev, .home-section-module .home-section-module-1 .swiper-button-next {
+        font-size: 28px;
+    }
+}

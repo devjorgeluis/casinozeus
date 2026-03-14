@@ -1,4 +1,5 @@
 import { useRef } from 'react';
+import { useOutletContext } from "react-router-dom";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
@@ -14,11 +15,35 @@ import ImgBanner8 from "/src/assets/img/banner8.png";
 import ImgBanner9 from "/src/assets/img/banner9.png";
 import ImgBanner10 from "/src/assets/img/banner10.jpg";
 import ImgBanner11 from "/src/assets/img/banner11.png";
+import ImgMobileBanner1 from "/src/assets/img/mobile-banner1.jpg";
+import ImgMobileBanner2 from "/src/assets/img/mobile-banner2.png";
+import ImgMobileBanner3 from "/src/assets/img/mobile-banner3.jpg";
+import ImgMobileBanner4 from "/src/assets/img/mobile-banner4.jpg";
+import ImgMobileBanner5 from "/src/assets/img/mobile-banner5.jpg";
+import ImgMobileBanner6 from "/src/assets/img/mobile-banner6.png";
+import ImgMobileBanner7 from "/src/assets/img/mobile-banner7.png";
+import ImgMobileBanner8 from "/src/assets/img/mobile-banner8.png";
+import ImgMobileBanner9 from "/src/assets/img/mobile-banner9.jpg";
+import ImgMobileBanner10 from "/src/assets/img/mobile-banner10.png";
+import ImgMobileBanner11 from "/src/assets/img/mobile-banner11.jpg";
 
 const Slideshow = () => {
   const swiperRef = useRef(null);
+  const { isMobile } = useOutletContext();
 
-  const slides = [
+  const slides = isMobile ? [
+    { id: 0, image: ImgMobileBanner1 },
+    { id: 1, image: ImgMobileBanner2 },
+    { id: 2, image: ImgMobileBanner3 },
+    { id: 3, image: ImgMobileBanner4 },
+    { id: 4, image: ImgMobileBanner5 },
+    { id: 5, image: ImgMobileBanner6 },
+    { id: 6, image: ImgMobileBanner7 },
+    { id: 7, image: ImgMobileBanner8 },
+    { id: 8, image: ImgMobileBanner9 },
+    { id: 9, image: ImgMobileBanner10 },
+    { id: 10, image: ImgMobileBanner11 }
+  ] : [
     { id: 0, image: ImgBanner1 },
     { id: 1, image: ImgBanner2 },
     { id: 2, image: ImgBanner3 },

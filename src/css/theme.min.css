@@ -35671,6 +35671,7 @@ html.landing-04 {
     margin: 0;
     display: flex;
     transition: 0.15s;
+    color: unset;
 }
 
 .home-section-module .swiper-container .swiper-button-prev::after,
