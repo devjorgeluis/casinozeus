@@ -24,7 +24,6 @@ const Layout = () => {
     const [isSlotsOnly, setIsSlotsOnly] = useState("");
     const [showLoginModal, setShowLoginModal] = useState(false);
     const [isSidebarExpanded, setIsSidebarExpanded] = useState(true);
-    const [showMobileSearch, setShowMobileSearch] = useState(false);
     const [showSupportModal, setShowSupportModal] = useState(false);
     const [supportParentOnly, setSupportParentOnly] = useState(false);
     const [showFullDivLoading, setShowFullDivLoading] = useState(false);
@@ -154,8 +153,6 @@ const Layout = () => {
         refreshBalance,
         isSidebarExpanded,
         toggleSidebar,
-        showMobileSearch,
-        setShowMobileSearch,
         openSupportModal
     };
 

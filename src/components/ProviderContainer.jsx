@@ -98,42 +98,67 @@ const ProviderContainer = ({
                         <i className="fa-solid fa-circle-arrow-left"></i>
                     </div>
                 }
-                <Swiper
-                    ref={swiperRef}
-                    modules={[Navigation]}
-                    spaceBetween={15}
-                    slidesPerView={15}
-                    navigation={{
-                        prevEl: prevRef.current,
-                        nextEl: nextRef.current,
-                    }}
-                    breakpoints={{
-                        320: { slidesPerView: 2.8 },
-                        768: { slidesPerView: 5.8 },
-                        1280: { slidesPerView: 15 },
-                    }}
-                >
-                    {
-                        providers.map((provider, idx) => {
-                            const imageUrl = provider.image_local
-                                ? `${contextData.cdnUrl}${provider.image_local}`
-                                : provider.image_url;
 
-                            return (
-                                <SwiperSlide key={idx} className="swiper-slide">
-                                    <div key={idx} className={`provider-item ${isSelected(provider) ? 'Active' : ''}`} onClick={(e) => handleClick(e, provider)}>
-                                        <div className="provider-img">
-                                            {
-                                                imageUrl ? <img src={imageUrl} alt={provider?.name} /> : <>{provider?.name}</>
-                                            }
+                {
+                    providers.length > 15 ?
+                        <Swiper
+                            ref={swiperRef}
+                            modules={[Navigation]}
+                            spaceBetween={15}
+                            slidesPerView={15}
+                            navigation={{
+                                prevEl: prevRef.current,
+                                nextEl: nextRef.current,
+                            }}
+                            breakpoints={{
+                                320: { slidesPerView: 2.8 },
+                                768: { slidesPerView: 5.8 },
+                                1280: { slidesPerView: 15 },
+                            }}
+                        >
+                            {
+                                providers.map((provider, idx) => {
+                                    const imageUrl = provider.image_local
+                                        ? `${contextData.cdnUrl}${provider.image_local}`
+                                        : provider.image_url;
+
+                                    return (
+                                        <SwiperSlide key={idx} className="swiper-slide">
+                                            <div key={idx} className={`provider-item ${isSelected(provider) ? 'Active' : ''}`} onClick={(e) => handleClick(e, provider)}>
+                                                <div className="provider-img">
+                                                    {
+                                                        imageUrl ? <img src={imageUrl} alt={provider?.name} /> : <>{provider?.name}</>
+                                                    }
+                                                </div>
+                                                <span className="provider-name">{provider?.name}</span>
+                                            </div>
+                                        </SwiperSlide>
+                                    )
+                                })
+                            }
+                        </Swiper> : <>
+                            {
+                                providers.map((provider, idx) => {
+                                    const imageUrl = provider.image_local
+                                        ? `${contextData.cdnUrl}${provider.image_local}`
+                                        : provider.image_url;
+
+                                    return (
+                                        <div className="swiper-slide">
+                                            <div key={idx} className={`provider-item ${isSelected(provider) ? 'Active' : ''}`} onClick={(e) => handleClick(e, provider)}>
+                                                <div className="provider-img">
+                                                    {
+                                                        imageUrl ? <img src={imageUrl} alt={provider?.name} /> : <>{provider?.name}</>
+                                                    }
+                                                </div>
+                                                <span className="provider-name">{provider?.name}</span>
+                                            </div>
                                         </div>
-                                        <span className="provider-name">{provider?.name}</span>
-                                    </div>
-                                </SwiperSlide>
-                            )
-                        })
-                    }
-                </Swiper>
+                                    )
+                                })
+                            }
+                        </>
+                }
 
                 {
                     providers.length > 15 &&

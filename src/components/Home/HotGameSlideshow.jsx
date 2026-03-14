@@ -6,7 +6,6 @@ import { Grid, Navigation } from "swiper/modules";
 import "swiper/css";
 import 'swiper/css/grid';
 import "swiper/css/navigation";
-import GameCard from "../GameCard";
 import BigCameCard from "../BigCameCard";
 
 const HotGameSlideshow = ({ games, name, title, onGameClick }) => {

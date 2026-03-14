@@ -24,11 +24,15 @@ const GameCard = (props) => {
     };
 
     return (
-        <a className="game-opened-iframe" onClick={handleGameClick}>
-            <img src={props.imageSrc} alt={props.title} />
-            <div className="FavoriteContainer">
-                <div className="Favorite Centered">
-                    <i className="fa-regular fa-heart fa-fw"></i>
+        <a className="GameContainer game-opened-iframe" onClick={handleGameClick}>
+            <div className="Game">
+                <div className="Image">
+                    <img src={props.imageSrc} alt={props.title} />
+                </div>
+                <div className="FavoriteContainer">
+                    <div className="Favorite Centered">
+                        <i className="fa-regular fa-heart fa-fw"></i>
+                    </div>
                 </div>
             </div>
         </a>

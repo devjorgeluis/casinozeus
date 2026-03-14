@@ -47592,6 +47592,7 @@ html.landing-04 {
     background-position: center center;
     background-size: 50%;
     cursor: pointer;
+    aspect-ratio: 1;
 }
 
 .dw-casino-11 .AllGames .GameContainer .Game .Image img {
@@ -47713,7 +47714,7 @@ html.landing-04 {
     z-index: 1;
 }
 
-.dw-casino-11 .AllGames .btn-footer-sg {
+.dw-casino-11 .btn-footer-sg {
     position: absolute;
     display: flex;
     justify-content: space-between;
@@ -47728,7 +47729,7 @@ html.landing-04 {
     margin-bottom: 10px;
 }
 
-.dw-casino-11 .AllGames .btn-footer-sg .btn {
+.dw-casino-11 .btn-footer-sg .btn {
     width: 45%;
     flex-grow: 1;
     text-transform: uppercase;
