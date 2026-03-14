@@ -1,4 +1,5 @@
 import { useNavigate } from "react-router-dom";
+import ImgLogo from "/src/assets/svg/logo.svg";
 
 const Footer = ({ isSlotsOnly }) => {
     const navigate = useNavigate();
@@ -39,33 +40,50 @@ const Footer = ({ isSlotsOnly }) => {
     ];
 
     return (
-        <div className="footer-app">
-            <div className="container-fluid">
-                <div className="row">
-                    <div className="left">
-                        <p className="copyright">2024 Todos los derechos reservados. Sitio Operado bajo Licencia de Curazao - Antillas Holandesas.</p>
+        <footer className="footer-cs">
+            <div className="footer-mobile-menu mobile-item">
+                <div className="logo">
+                    <img src={ImgLogo} alt="Logo" />
+                </div>
+                <p className="text-center mt-3 mb-3">
+                    2026 All right reserved. Site operated under License from Curaçao <span className="fi fi-ar ml-3"></span>
+                </p>
+            </div>
+            <div className="footer-top-container">
+                <div className="footer-top">
+                    <div className="principal desktop-item">
+                        <div className="footer-top-item">
+                            <div className="logo">
+                                <img src={ImgLogo} alt="Logo" />
+                            </div>
+                            <p className="text-justify mt-3 mb-3 text-copyright">
+                                2026 All right reserved. Site operated under License from Curaçao <span className="fi fi-ar ml-3"></span>
+                            </p>
+                        </div>
                     </div>
-                    <div className="right">
-                        <div className="row-right">
-                            <div className="col">
-                                <h4>Secciones</h4>
-                                <ul>
+                    <div className="nav-items flex-wrap align-items-start">
+                        <div className="d-flex w-100">
+                            <div className="footer-top-item">
+                                <h2 className="title">
+                                    <span>Páginas</span>
+                                </h2>
+                                <div className="options-items">
                                     {menuItems.map((menu, index) => (
-                                        <li key={index}>
+                                        <div className="option" key={index}>
                                             <a
                                                 onClick={() => navigate(menu.href)}
                                             >
                                                 {menu.name}
                                             </a>
-                                        </li>
+                                        </div>
                                     ))}
-                                </ul>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </footer>
     );
 };
 
