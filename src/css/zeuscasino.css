@@ -2247,3 +2247,8 @@ body.swal2-toast-column .swal2-toast .swal2-validation-message {
         font-size: 28px;
     }
 }
+
+.swiper-button-prev,
+.swiper-button-next {
+  color: unset!important
+}

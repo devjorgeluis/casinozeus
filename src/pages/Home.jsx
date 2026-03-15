@@ -4,7 +4,6 @@ import { AppContext } from "../AppContext";
 import { NavigationContext } from "../components/Layout/NavigationContext";
 import { callApi } from "../utils/Utils";
 import Slideshow from "../components/Home/Slideshow";
-import GameSlideshow from "../components/Home/GameSlideshow";
 import CategoryContainer from "../components/CategoryContainer";
 import ProviderContainer from "../components/ProviderContainer";
 import BannerContainer from "../components/Home/BannerContainer";
@@ -29,6 +28,7 @@ import ImgCategoryBlackjack from "/src/assets/svg/jackpots.svg";
 import ImgCategoryRoulette from "/src/assets/svg/roulette.svg";
 import ImgCategoryCrash from "/src/assets/svg/crash.svg";
 import ImgCategoryMegaways from "/src/assets/svg/megaways.svg";
+import Img777 from "/src/assets/svg/casino.svg";
 
 const Home = () => {
   const { contextData } = useContext(AppContext);
@@ -635,27 +635,22 @@ const Home = () => {
           <div className="home-section-module">
             <Slideshow />
 
-            {/* <div className="brands-container-responsive">
-                    <div className="content-responsive">
-                      <SearchInput
-                        txtSearch={txtSearch}
-                        setTxtSearch={setTxtSearch}
-                        searchRef={searchRef}
-                        search={search}
-                        isMobile={isMobile}
-                      />
-
-                      <div className="boton-brands">
-                        <div className="boton-brands">
-                          <button onClick={() => setShowFilterModal(true)}>
-                            {" "}Proveedores
-                          </button>
-                        </div>
-                      </div>
-                    </div>
-                  </div> */}
-
             <div className="home-section-module-important home-section-module-39 loaded">
+              <div className="casino-filters-mobile mobile-item">
+                <div className="SearchContainer">
+                  <SearchInput
+                    txtSearch={txtSearch}
+                    setTxtSearch={setTxtSearch}
+                    searchRef={searchRef}
+                    search={search}
+                    isMobile={isMobile}
+                  />
+                </div>
+                <div className="btn filter-all provider-item" onClick={() => setShowFilterModal(true)}>
+                  <img src={Img777} />
+                  <span className="name">Proveedores</span>
+                </div>
+              </div>
               <CategoryContainer
                 categories={tags}
                 selectedCategoryIndex={selectedCategoryIndex}
@@ -756,8 +751,6 @@ const Home = () => {
                         />
                       ))}
                     </div>
-                    {isLoadingGames && <LoadApi />}
-
                     {games.length > 0 && (
                       <div className="btn-footer-sg">
                         <button className="btn btn-theme02" onClick={loadMoreGames}>
@@ -849,7 +842,7 @@ const Home = () => {
                           return (
                             <HotGameSlideshow
                               key={entry?.category?.id || catIndex}
-                              games={entry.games.slice(0, 6)}
+                              games={entry.games}
                               name={entry?.category?.name}
                               title={entry?.category?.name}
                               icon=""
@@ -870,6 +863,36 @@ const Home = () => {
                     </div>
                   </div>
                 )}
+
+
+                <ProviderModal
+                  isOpen={showFilterModal}
+                  onClose={() => setShowFilterModal(false)}
+                  onCategorySelect={(category) => {
+                    handleCategorySelect(category);
+                  }}
+                  onCategoryClick={(tag, _id, _table, index) => {
+                    setTxtSearch("");
+                    setShowFullDivLoading(true);
+                    if (window.location.hash !== `#${tag.code}`) {
+                      window.location.hash = `#${tag.code}`;
+                      getPage(tag.code);
+                    } else {
+                      setSelectedCategoryIndex(index);
+                      setIsSingleCategoryView(false);
+                      setIsExplicitSingleCategoryView(false);
+                      getPage(tag.code);
+                    }
+                  }}
+                  onSelectProvider={(provider) => {
+                    handleProviderSelect(provider);
+                    setShowFilterModal(false);
+                  }}
+                  contextData={contextData}
+                  tags={tags}
+                  categories={categories}
+                  selectedCategoryIndex={selectedCategoryIndex}
+                />
               </div>
             </div>
 
@@ -883,35 +906,6 @@ const Home = () => {
           </div>
         </>
       )}
-
-      <ProviderModal
-        isOpen={showFilterModal}
-        onClose={() => setShowFilterModal(false)}
-        onCategorySelect={(category) => {
-          handleCategorySelect(category);
-        }}
-        onCategoryClick={(tag, _id, _table, index) => {
-          setTxtSearch("");
-          setShowFullDivLoading(true);
-          if (window.location.hash !== `#${tag.code}`) {
-            window.location.hash = `#${tag.code}`;
-            getPage(tag.code);
-          } else {
-            setSelectedCategoryIndex(index);
-            setIsSingleCategoryView(false);
-            setIsExplicitSingleCategoryView(false);
-            getPage(tag.code);
-          }
-        }}
-        onSelectProvider={(provider) => {
-          handleProviderSelect(provider);
-          setShowFilterModal(false);
-        }}
-        contextData={contextData}
-        tags={tags}
-        categories={categories}
-        selectedCategoryIndex={selectedCategoryIndex}
-      />
     </>
   );
 };

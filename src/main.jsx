@@ -2,7 +2,6 @@ import { createRoot } from 'react-dom/client'
 import AppContextProvider from './AppContext.jsx'
 
 import "./css/vendor.min.css"
-// import "./css/swiper.css"
 import "./css/animate.css"
 import "./css/theme.min.css"
 import "./css/theme-chalk.css"

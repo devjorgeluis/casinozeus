@@ -58,49 +58,44 @@ const ProviderModal = ({
     if (!isOpen) return null;
 
     return (
-        <div className="modal-wrapper" onClick={onClose}>
-            <div>
-                <div className="modal-providers-container" onClick={e => e.stopPropagation()}>
-                    {view === 'filter' && (
-                        <>
-                            <div className="modal-providers">
-                                <div className="providers-list-container">
-                                    <div className="casino-filters">
-                                        <div className="close-button">
-                                            <span onClick={onClose}>Cerrar</span>
-                                        </div>
-                                    </div>
-                                    <ul className="list-exclusive">
-                                        {categories.map((p, idx) => {
-                                            const imageDataSrc = p.image_local != null
-                                                ? contextData.cdnUrl + p.image_local
-                                                : p.image_url;
+        <div className="modal modal-default fade all-providers-modal show" style={{ display: "block" }} onClick={onClose}>
+            <div className="modal-dialog">
+                <div className="modal-content" onClick={e => e.stopPropagation()}>
+                    <div className="modal-header">
+                        <div className="modal-title"></div>
+                        <button type="button" className="close" onClick={onClose}>
+                            <span>Close</span>
+                        </button>
+                    </div>
+                    <div className="modal-body">
+                        <div className="list-providers-container">
+                            <ul className="list-providers beauty-scroll">
+                                {categories.map((p, idx) => {
+                                    const imageDataSrc = p.image_local != null
+                                        ? contextData.cdnUrl + p.image_local
+                                        : p.image_url;
 
-                                            return (
-                                                <li
-                                                    key={p.id || idx}
-                                                    onClick={() => {
-                                                        // forward selection
-                                                        onSelectProvider && onSelectProvider(p);
-                                                    }}
-                                                >
-                                                    <a href="#" onClick={(e) => { e.preventDefault(); onSelectProvider && onSelectProvider(p); }}>
-                                                        <div className="provider">
-                                                            <div className="provider-logo">
-                                                                <img src={imageDataSrc} alt={p.name} />
-                                                            </div>
-                                                            <span className="provider-name">{p.name}</span>
-                                                        </div>
-                                                        <i className="fa-solid fa-fire-flame-curved"></i>
-                                                    </a>
-                                                </li>
-                                            );
-                                        })}
-                                    </ul>
-                                </div>
-                            </div>
-                        </>
-                    )}
+                                    return (
+                                        <li
+                                            className="provider"
+                                            key={p.id || idx}
+                                            onClick={() => {
+                                                onSelectProvider && onSelectProvider(p);
+                                            }}
+                                        >
+                                            <div className="provider-data">
+                                                <div className="provider-logo">
+                                                    <img src={imageDataSrc} alt={p.name} />
+                                                </div>
+                                                <span className="provider-name">{p.name}</span>
+                                            </div>
+                                            <i className="fa-solid fa-fire-flame-curved fa-fw icon-promoted"></i>
+                                        </li>
+                                    );
+                                })}
+                            </ul>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

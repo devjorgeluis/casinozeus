@@ -86,22 +86,26 @@ const HotGameSlideshow = ({ games, name, title, onGameClick }) => {
                 <div className="dw-home-featured-games">
                     <div className="swiper-featured-games">
                         {games.length > 10 && (
-                            <span className="title__slider">
-                                <span
-                                    className={`title__slider__left ${isPrevDisabled ? "disabled" : ""}`}
+                            <div className="swiper-container swiper-container-initialized swiper-container-horizontal swiper-container-multirow swiper-container-android">
+                                <div
+                                    className={`swiper-button-prev ${isPrevDisabled ? "disabled" : ""}`}
                                     onClick={handlePrev}
                                     role="button"
                                     tabIndex={0}
                                     aria-disabled={isPrevDisabled}
-                                ></span>
-                                <span
-                                    className={`title__slider__right ${isNextDisabled ? "disabled" : ""}`}
+                                >
+                                    <i aria-hidden="true" className="fa fa-angle-left"></i>
+                                </div>
+                                <div
+                                    className={`swiper-button-next ${isNextDisabled ? "disabled" : ""}`}
                                     onClick={handleNext}
                                     role="button"
                                     tabIndex={0}
                                     aria-disabled={isNextDisabled}
-                                ></span>
-                            </span>
+                                >
+                                    <i aria-hidden="true" className="fa fa-angle-right"></i>
+                                </div>
+                            </div>
                         )}
                         <div className="swiper-container swiper-container-initialized swiper-container-horizontal swiper-container-multirow">
                             {games.length >= 10 ? (

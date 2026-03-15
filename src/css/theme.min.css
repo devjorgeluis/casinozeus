@@ -35936,7 +35936,7 @@ html.landing-04 {
 .home-section-module .home-section-module-4 .dw-home-featured-games .swiper-featured-games .swiper-container .swiper-slide a {
     position: relative;
     display: flex;
-    width: inherit;
+    width: 100%;
     transition: all 0.3s ease;
 }
 
