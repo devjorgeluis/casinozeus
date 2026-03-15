@@ -2252,3 +2252,29 @@ body.swal2-toast-column .swal2-toast .swal2-validation-message {
 .swiper-button-next {
   color: unset!important
 }
+
+.btn-close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background-color: transparent;
+    outline: none;
+    border: none;
+    color: #fff;
+}
+
+.form-control {
+    background-color: #262626;
+    border: none;
+    color: #fff;
+    border-radius: 6px;
+    padding: 10px 20px;
+    line-height: .75em;
+    margin-bottom: 20px;
+    font-size: 1em;
+}
+
+.form-control:focus {
+    border: none;
+    background-color: #262626;
+}

@@ -3,7 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { AppContext } from "../AppContext";
 import { callApi } from "../utils/Utils";
 import LoadApi from "../components/Loading/LoadApi";
-import BackButton from "../components/BackButton";
 import AuthErrorModal from "../components/Modal/AuthErrorModal";
 import ImgLogo from "/src/assets/svg/logo.svg";
 
@@ -85,7 +84,6 @@ const Login = () => {
 
     return (
         <div className="login-container">
-            <BackButton className="login-back-button" link="/" />
             {isLoading && <LoadApi isLoading={isLoading} />}
             
             <div className="login-form-container">
