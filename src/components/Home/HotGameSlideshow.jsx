@@ -8,7 +8,7 @@ import 'swiper/css/grid';
 import "swiper/css/navigation";
 import BigGameCard from "../BigGameCard";
 
-const HotGameSlideshow = ({ games, name, title, onGameClick }) => {
+const HotGameSlideshow = ({ games, name, title, onGameClick, loadMoreContent }) => {
     const { contextData } = useContext(AppContext);
     const swiperRef = useRef(null);
     const prevRef = useRef(null);
@@ -79,9 +79,12 @@ const HotGameSlideshow = ({ games, name, title, onGameClick }) => {
                             <span>{title}</span>
                         </div>
                     </div>
-                    <a className="show-more-games-lobby">
-                        <span>Ver todos</span>
-                    </a>
+                    {
+                        loadMoreContent && 
+                        <a className="show-more-games-lobby" onClick={loadMoreContent}>
+                            <span>Ver todos</span>
+                        </a>
+                    }
                 </div>
                 <div className="dw-home-featured-games">
                     <div className="swiper-featured-games">

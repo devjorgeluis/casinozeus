@@ -32,7 +32,7 @@ const Sports = () => {
     return (
         <>
             {isLoading ? (
-                <div className="loading-page">
+                <div className="text-center">
                     <LoadApi />
                 </div>
             ) : sportsEmbedUrl ? (

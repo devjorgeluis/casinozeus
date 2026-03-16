@@ -127,7 +127,12 @@ const Sidebar = ({
 
                     {
                         isLogin && 
-                        <a className="logout-button" onClick={() => handleLogoutClick()}>
+                        <a
+                            className="logout-button" onClick={() => {
+                                handleLogoutClick();
+                                onClose && onClose();
+                            }}
+                        >
                             <i className="fa-solid fa-right-from-bracket"></i>
                             <span>Logout</span>
                         </a>

@@ -4,6 +4,7 @@ import { AppContext } from "../AppContext";
 import { LayoutContext } from "../components/Layout/LayoutContext";
 import { NavigationContext } from "../components/Layout/NavigationContext";
 import { callApi } from "../utils/Utils";
+import Slideshow from "../components/Home/Slideshow";
 import HotGameSlideshow from "../components/Home/HotGameSlideshow";
 import GameCard from "/src/components/GameCard";
 import GameModal from "../components/Modal/GameModal";
@@ -14,7 +15,6 @@ import ProviderContainer from "../components/ProviderContainer";
 import SearchInput from "../components/SearchInput";
 import LoadApi from "../components/Loading/LoadApi";
 import "animate.css";
-import Slideshow from "../components/Home/Slideshow";
 
 let selectedGameId = null;
 let selectedGameType = null;
@@ -50,7 +50,6 @@ const Casino = () => {
   const [pageData, setPageData] = useState({});
   const [gameUrl, setGameUrl] = useState("");
   const [shouldShowGameModal, setShouldShowGameModal] = useState(false);
-  const [mobileShowMore, setMobileShowMore] = useState(false);
   const [isSingleCategoryView, setIsSingleCategoryView] = useState(false);
   const [isExplicitSingleCategoryView, setIsExplicitSingleCategoryView] =
     useState(false);
@@ -262,9 +261,6 @@ const Casino = () => {
 
   const loadMoreContent = (category, categoryIndex) => {
     if (!category) return;
-    if (isMobile) {
-      setMobileShowMore(true);
-    }
     setIsSingleCategoryView(true);
     setIsExplicitSingleCategoryView(true);
     setSelectedCategoryIndex(categoryIndex);
@@ -471,10 +467,6 @@ const Casino = () => {
       setSelectedCategoryIndex(-1);
 
       fetchContent(provider, provider.id, provider.table_name, index, true);
-
-      if (isMobile) {
-        setMobileShowMore(true);
-      }
     } else {
       const firstCategory = categories[0];
       if (firstCategory) {
@@ -670,10 +662,9 @@ const Casino = () => {
                               : game.image_url
                           }
                           game={game}
-                          mobileShowMore={mobileShowMore}
                           onGameClick={(g) => {
                             if (isLogin) {
-                              launchGame(g, "slot", "tab");
+                              launchGame(g, "slot", "modal");
                             } else {
                               handleLoginClick();
                             }
@@ -719,10 +710,9 @@ const Casino = () => {
                                   : game.image_url
                               }
                               game={game}
-                              mobileShowMore={mobileShowMore}
                               onGameClick={(g) => {
                                 if (isLogin) {
-                                  launchGame(g, "slot", "tab");
+                                  launchGame(g, "slot", "modal");
                                 } else {
                                   handleLoginClick();
                                 }
@@ -766,7 +756,7 @@ const Casino = () => {
                             }
                             onGameClick={(g) => {
                               if (isLogin) {
-                                launchGame(g, "slot", "tab");
+                                launchGame(g, "slot", "modal");
                               } else {
                                 handleLoginClick();
                               }

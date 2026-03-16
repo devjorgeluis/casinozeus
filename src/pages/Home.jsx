@@ -54,7 +54,6 @@ const Home = () => {
   const [shouldShowGameModal, setShouldShowGameModal] = useState(false);
   const [showFilterModal, setShowFilterModal] = useState(false);
   const [isLoadingGames, setIsLoadingGames] = useState(false);
-  const [mobileShowMore, setMobileShowMore] = useState(false);
   const refGameModal = useRef();
   const pendingPageRef = useRef(new Set());
   const pendingCategoryFetchesRef = useRef(0);
@@ -380,9 +379,6 @@ const Home = () => {
 
   const loadMoreContent = (category, categoryIndex) => {
     if (!category) return;
-    if (isMobile) {
-      setMobileShowMore(true);
-    }
     setIsSingleCategoryView(true);
     setSelectedCategoryIndex(categoryIndex);
     setActiveCategory(category);
@@ -518,10 +514,6 @@ const Home = () => {
       setSelectedCategoryIndex(-1);
 
       fetchContent(provider, provider.id, provider.table_name, index, true);
-
-      if (isMobile) {
-        setMobileShowMore(true);
-      }
     } else {
       const firstCategory = categories[0];
       if (firstCategory) {
@@ -678,30 +670,41 @@ const Home = () => {
                         />
                       )}
                     </div>
-                    <div className="AllGames">
-                      {games.map((game, idx) => (
-                        <GameCard
-                          key={`list-${activeCategory?.id || "search"}-${game.id}-${idx}`}
-                          id={game.id}
-                          provider={activeCategory?.name || "Casino"}
-                          title={game.name}
-                          imageSrc={
-                            game.image_local !== null
-                              ? contextData.cdnUrl + game.image_local
-                              : game.image_url
-                          }
-                          game={game}
-                          mobileShowMore={mobileShowMore}
-                          onGameClick={(g) => {
-                            if (isLogin) {
-                              launchGame(g, "slot", "tab");
-                            } else {
-                              handleLoginClick();
+
+                    {
+                      games.length > 0 &&
+                      <div className="AllGames">
+                        {games.map((game, idx) => (
+                          <GameCard
+                            key={`list-${activeCategory?.id || "search"}-${game.id}-${idx}`}
+                            id={game.id}
+                            provider={activeCategory?.name || "Casino"}
+                            title={game.name}
+                            imageSrc={
+                              game.image_local !== null
+                                ? contextData.cdnUrl + game.image_local
+                                : game.image_url
                             }
-                          }}
-                        />
-                      ))}
-                    </div>
+                            game={game}
+                            onGameClick={(g) => {
+                              if (isLogin) {
+                                launchGame(g, "slot", "modal");
+                              } else {
+                                handleLoginClick();
+                              }
+                            }}
+                          />
+                        ))}
+                      </div>
+                    }
+
+                    {!isLoadingGames && games.length === 0 && (
+                      <div className="GamesEmptyContainer">
+                        <div className="GamesEmpty">
+                          <span>Sin Juegos</span>
+                        </div>
+                      </div>
+                    )}
 
                     {games.length > 0 && (
                       <div className="btn-footer-sg">
@@ -727,10 +730,9 @@ const Home = () => {
                                 ? contextData.cdnUrl + game.image_local
                                 : game.image_url
                             }
-                            mobileShowMore={mobileShowMore}
                             onClick={() =>
                               isLogin
-                                ? launchGame(game, "slot", "tab")
+                                ? launchGame(game, "slot", "modal")
                                 : handleLoginClick()
                             }
                           />
@@ -847,7 +849,7 @@ const Home = () => {
                               }
                               onGameClick={(g) => {
                                 if (isLogin) {
-                                  launchGame(g, "slot", "tab");
+                                  launchGame(g, "slot", "modal");
                                 } else {
                                   handleLoginClick();
                                 }

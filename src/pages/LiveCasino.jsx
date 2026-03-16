@@ -4,6 +4,7 @@ import { AppContext } from "../AppContext";
 import { callApi } from "../utils/Utils";
 import Slideshow from "../components/LiveCasino/Slideshow";
 import LiveGameCard from "/src/components/LiveGameCard";
+import LoginModal from "../components/Modal/LoginModal";
 import GameModal from "../components/Modal/GameModal";
 import ProviderModal from "../components/Modal/ProviderModal";
 import ProviderContainer from "../components/ProviderContainer";
@@ -33,12 +34,12 @@ const LiveCasino = () => {
   const [pageData, setPageData] = useState({});
   const [gameUrl, setGameUrl] = useState("");
   const [shouldShowGameModal, setShouldShowGameModal] = useState(false);
-  const [mobileShowMore, setMobileShowMore] = useState(false);
   const [isLoadingGames, setIsLoadingGames] = useState(false);
   const [showFilterModal, setShowFilterModal] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
   const refGameModal = useRef();
   const location = useLocation();
-  const { isSlotsOnly, isLogin, isMobile, handleLoginClick } = useOutletContext();
+  const { isSlotsOnly, isLogin, isMobile } = useOutletContext();
   const searchRef = useRef(null);
 
   useEffect(() => {
@@ -291,10 +292,6 @@ const LiveCasino = () => {
         index,
         true
       );
-
-      if (isMobile) {
-        setMobileShowMore(true);
-      }
     } else {
       const firstCategory = categories[0];
       if (firstCategory) {
@@ -303,6 +300,14 @@ const LiveCasino = () => {
         fetchContent(firstCategory, firstCategory.id, firstCategory.table_name, 0, true);
       }
     }
+  };
+
+  const handleLoginClick = () => {
+    setShowLoginModal(true);
+  };
+
+  const handleLoginConfirm = () => {
+    setShowLoginModal(false);
   };
 
   const search = (e) => {
@@ -358,6 +363,13 @@ const LiveCasino = () => {
 
   return (
     <>
+      {showLoginModal && (
+        <LoginModal
+          isOpen={showLoginModal}
+          onClose={() => setShowLoginModal(false)}
+          onConfirm={handleLoginConfirm}
+        />
+      )}
       {shouldShowGameModal && selectedGameId !== null ? (
         <GameModal
           gameUrl={gameUrl}
@@ -426,7 +438,6 @@ const LiveCasino = () => {
                             : game.image_url
                         }
                         game={game}
-                        mobileShowMore={mobileShowMore}
                         onGameClick={(g) => {
                           if (isLogin) {
                             launchGame(g, "slot", "modal");

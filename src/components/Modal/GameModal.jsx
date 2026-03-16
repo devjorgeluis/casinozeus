@@ -1,13 +1,12 @@
 import { useState, useEffect, useContext } from "react";
 import LoadApi from "../Loading/LoadApi";
 import { NavigationContext } from "../Layout/NavigationContext";
-// import IconEnlarge from "/src/assets/svg/enlarge.svg";
-// import IconClose from "/src/assets/svg/game-close.svg";
 
 const GameModal = (props) => {
   const [url, setUrl] = useState(null);
   const [iframeLoaded, setIframeLoaded] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
+  const [isExpandActive, setIsExpandActive] = useState(false);
   const { setShowFullDivLoading } = useContext(NavigationContext);
 
   useEffect(() => {
@@ -15,45 +14,47 @@ const GameModal = (props) => {
       if (props.isMobile) {
         window.location.href = props.gameUrl;
       } else {
-        document
-          .getElementsByClassName("game-view-container")[0]
-          .classList.remove("d-none");
+        // Show the game container
+        const container = document.querySelector(".preview-games-iframe");
+        if (container) {
+          container.style.display = "block";
+          container.classList.add("expand-active");
+        }
         setUrl(props.gameUrl);
+        setIsExpandActive(true);
       }
     }
   }, [props.gameUrl, props.isMobile]);
 
-  // Cleanup when the modal unmounts or gameUrl changes to ensure the container is hidden
+  // Cleanup when the modal unmounts
   useEffect(() => {
     return () => {
-      const el = document.getElementsByClassName("game-view-container")[0];
-      if (el) {
-        el.classList.add("d-none");
-        el.classList.remove("fullscreen");
-        el.classList.remove("with-background");
+      const container = document.querySelector(".preview-games-iframe");
+      if (container) {
+        container.style.display = "none";
+        container.classList.remove("expand-active");
       }
       setUrl(null);
       setIframeLoaded(false);
       setIsFullscreen(false);
+      setIsExpandActive(false);
     };
   }, []);
 
   const toggleFullScreen = () => {
-    const gameWindow = document.getElementsByClassName("game-window")[0];
+    const iframe = document.getElementById("game-iframe");
 
     if (!isFullscreen) {
       // Enter fullscreen
-      if (gameWindow.requestFullscreen) {
-        gameWindow.requestFullscreen();
-      } else if (gameWindow.mozRequestFullScreen) {
-        gameWindow.mozRequestFullScreen();
-      } else if (gameWindow.webkitRequestFullscreen) {
-        gameWindow.webkitRequestFullscreen();
-      } else if (gameWindow.msRequestFullscreen) {
-        gameWindow.msRequestFullscreen();
+      if (iframe.requestFullscreen) {
+        iframe.requestFullscreen();
+      } else if (iframe.mozRequestFullScreen) {
+        iframe.mozRequestFullScreen();
+      } else if (iframe.webkitRequestFullscreen) {
+        iframe.webkitRequestFullscreen();
+      } else if (iframe.msRequestFullscreen) {
+        iframe.msRequestFullscreen();
       }
-      const container = document.getElementsByClassName("game-view-container")[0];
-      if (container) container.classList.add("fullscreen");
       setIsFullscreen(true);
     } else {
       // Exit fullscreen
@@ -66,8 +67,6 @@ const GameModal = (props) => {
       } else if (document.msExitFullscreen) {
         document.msExitFullscreen();
       }
-      const container = document.getElementsByClassName("game-view-container")[0];
-      if (container) container.classList.remove("fullscreen");
       setIsFullscreen(false);
     }
   };
@@ -80,9 +79,6 @@ const GameModal = (props) => {
       !document.msFullscreenElement
     ) {
       setIsFullscreen(false);
-      document
-        .getElementsByClassName("game-view-container")[0]
-        .classList.remove("fullscreen");
     }
   };
 
@@ -102,79 +98,91 @@ const GameModal = (props) => {
 
   const handleIframeLoad = () => {
     if (url != null) {
-      document.getElementById("game-window-iframe").classList.remove("d-none");
       setIframeLoaded(true);
       setShowFullDivLoading(false);
+      
+      // Hide loading container
+      const loadingEl = document.getElementById("game-window-loading");
+      if (loadingEl) {
+        loadingEl.style.display = "none";
+      }
     }
   };
 
   const handleIframeError = () => {
     console.error("Error loading game iframe");
     setIframeLoaded(false);
-  }
+    setShowFullDivLoading(false);
+    
+    // Show error message
+    const loadingEl = document.getElementById("game-window-loading");
+    if (loadingEl) {
+      loadingEl.innerHTML = '<div class="error-message">Error loading game. Please try again.</div>';
+    }
+  };
 
-  // Render modal for all devices, including mobile, so user navigates inside modal
+  const handleClose = () => {
+    const container = document.querySelector(".preview-games-iframe");
+    if (container) {
+      container.style.display = "none";
+      container.classList.remove("expand-active");
+    }
+    setIsExpandActive(false);
+    if (typeof props.onClose === 'function') {
+      props.onClose();
+    }
+  };
+
+  // Don't render anything if not active
+  if (!isExpandActive && !props.gameUrl) return null;
 
   return (
-    <>
-      <div className="d-none game-view-container game-container">
-        <div className="game-window">
-          <div className="game-window-header">
-            <div className="game-window-header-item align-center full-window">
-              <span
-                className="icon-close"
-                onClick={() => { if (typeof props.onClose === 'function') props.onClose(); }}
-                title="Close"
-                role="button"
-                aria-label="Close game"
-              >
-                {/* <img src={IconClose} /> */}
-              </span>
-              {isFullscreen ? (
-                <span
-                  className="icon-originscreen"
-                  onClick={toggleFullScreen}
-                  title="Exit Fullscreen"
-                >
-                  {/* <img src={IconEnlarge} /> */}
-                </span>
-              ) : (
-                <span
-                  className="icon-fullscreen"
-                  onClick={toggleFullScreen}
-                  title="Fullscreen"
-                >
-                  {/* <img src={IconEnlarge} /> */}
-                </span>
-              )}
+    <div 
+      className="preview-games-iframe expand-active" 
+      style={{ display: isExpandActive ? 'block' : 'none' }}
+    >
+      <div className="background-opacity"></div>
+
+      <div className="container-iframe">
+        <div className="iframe-header">
+          <div className="options-container">
+            <div className="close-option close-option-update-balance-modal" onClick={handleClose}>
+              <i className="fa fa-close" aria-hidden="true"></i>
             </div>
+            <div className="clearfix"></div>
           </div>
-
-          {iframeLoaded}
-
-          {iframeLoaded == false && (
-            <div
-              id="game-window-loading"
-              className="game-window-iframe-wrapper"
-            >
-              <LoadApi />
-            </div>
-          )}
-
-          <div
-            id="game-window-iframe"
-            className="game-window-iframe-wrapper d-none"
-          >
-            <iframe
-              allow="camera;microphone;fullscreen *"
-              src={url}
-              onLoad={handleIframeLoad}
-              onError={handleIframeError}
-            ></iframe>
-          </div>
+          <div className="clearfix"></div>
         </div>
+
+        <iframe 
+          src={url} 
+          id="game-iframe" 
+          className="cs-game-iframe-modal" 
+          allowFullScreen
+          allow="camera;microphone;fullscreen *; autoplay; payment; clipboard-read; clipboard-write"
+          onLoad={handleIframeLoad}
+          onError={handleIframeError}
+          style={{ display: iframeLoaded ? 'block' : 'none' }}
+        />
       </div>
-    </>
+
+      {/* Fullscreen toggle button (optional - can be added if needed) */}
+      {iframeLoaded && (
+        <div className="fullscreen-toggle" onClick={toggleFullScreen} style={{
+          position: 'fixed',
+          bottom: '20px',
+          right: '20px',
+          zIndex: 10000,
+          background: 'rgba(0,0,0,0.5)',
+          color: 'white',
+          padding: '10px',
+          borderRadius: '5px',
+          cursor: 'pointer'
+        }}>
+          <i className={`fa ${isFullscreen ? 'fa-compress' : 'fa-expand'}`} aria-hidden="true"></i>
+        </div>
+      )}
+    </div>
   );
 };
 

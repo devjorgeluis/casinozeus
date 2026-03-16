@@ -35409,7 +35409,6 @@ html.landing-04 {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 10px;
     font-family: "Lato", sans-serif;
 }
 
@@ -35755,12 +35754,12 @@ html.landing-04 {
 .home-section-module .home-section-module-3 .dw-home-middle {
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 10px;
 }
 
 .home-section-module .home-section-module-3 .dw-home-middle .dw-item-figure {
-    min-width: calc(33.33% - 10px);
-    flex: 1;
+    width: calc(33.33% - 10px);
     text-align: center;
     color: #eee;
 }
