@@ -1,24 +1,22 @@
 import { useState, useEffect, useContext } from "react";
-import { useNavigate, useLocation, useOutletContext } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { AppContext } from "../../AppContext";
 import { callApi } from "../../utils/Utils";
 import LoadApi from "../../components/Loading/LoadApi";
-// import ImgArrowLeft from "/src/assets/svg/arrow-left1.svg";
-// import ImgDoubleArrowLeft from "/src/assets/svg/double-arrow-left.svg";
-// import ImgArrowRight from "/src/assets/svg/arrow-right1.svg";
-// import ImgDoubleArrowRight from "/src/assets/svg/double-arrow-right.svg";
+import ImgArrowLeft from "/src/assets/svg/arrow-left.svg";
+import ImgDoubleArrowLeft from "/src/assets/svg/double-arrow-left.svg";
+import ImgArrowRight from "/src/assets/svg/arrow-right.svg";
+import ImgDoubleArrowRight from "/src/assets/svg/double-arrow-right.svg";
 
 const ProfileHistory = () => {
     const navigate = useNavigate();
     const location = useLocation();
     const { contextData } = useContext(AppContext);
-    const { isMobile } = useOutletContext();
-
     const [transactions, setTransactions] = useState([]);
     const [loading, setLoading] = useState(false);
     const [pagination, setPagination] = useState({
         start: 0,
-        length: 5,
+        length: 10,
         totalRecords: 0,
         currentPage: 1,
     });
@@ -51,7 +49,19 @@ const ProfileHistory = () => {
         }));
     };
 
+    const handleLengthChange = (e) => {
+        const newLength = parseInt(e.target.value, 10);
+        setPagination((prev) => ({
+            ...prev,
+            length: newLength,
+            start: 0,
+            currentPage: 1,
+        }));
+    };
+
     const fetchHistory = () => {
+        if (!contextData?.session) return;
+        
         setLoading(true);
 
         let queryParams = new URLSearchParams({
@@ -97,14 +107,6 @@ const ProfileHistory = () => {
         fetchHistory();
     }, [pagination.start, pagination.length]);
 
-    useEffect(() => {
-        setPagination(prev => ({
-            ...prev,
-            start: 0,
-            currentPage: 1
-        }));
-    }, []);
-
     const totalPages = Math.ceil(pagination.totalRecords / pagination.length);
 
     const getVisiblePages = () => {
@@ -143,8 +145,7 @@ const ProfileHistory = () => {
 
         return (
             <nav className="p-paginator-bottom">
-                {/* <div className="p-paginator p-component">
-
+                <div className="p-paginator p-component">
                     <button
                         className={`p-paginator-first p-paginator-element p-link ${isFirstPage ? "p-disabled" : ""}`}
                         onClick={handleFirstPage}
@@ -189,87 +190,93 @@ const ProfileHistory = () => {
                     >
                         <img src={ImgDoubleArrowRight} alt="Last" />
                     </button>
-                </div> */}
+                </div>
             </nav>
         );
     };
 
     return (
-        <>
-            <div className="p-datatable p-component p-datatable-responsive-scroll p-datatable-sm table-art">
-                <div className="p-datatable-wrapper">
-                    {loading ? (
-                        <div className="flex justify-center items-center py-3">
-                            <LoadApi />
-                        </div>
-                    ) : (
-                        <>
-                            {
-                                transactions.length > 0 ?
-                                    <table className="p-datatable-table">
-                                        <thead className="p-datatable-thead" style={{ position: "sticky" }}>
-                                            <tr>
-                                                <th>
-                                                    <div className="p-column-header-content">
-                                                        <span className="p-column-title">Fecha</span>
-                                                    </div>
-                                                </th>
-                                                <th>
-                                                    <div className="p-column-header-content">
-                                                        <span className="p-column-title">Monto</span>
-                                                    </div>
-                                                </th>
-                                                <th>
-                                                    <div className="p-column-header-content">
-                                                        <span className="p-column-title">Balance Previo</span>
-                                                    </div>
-                                                </th>
-                                                <th>
-                                                    <div className="p-column-header-content">
-                                                        <span className="p-column-title">Balance Posterior</span>
-                                                    </div>
-                                                </th>
-                                            </tr>
-                                        </thead>
-                                        <tbody className="p-datatable-tbody">
-                                            {
-                                                transactions.map((transaction, index) => (
-                                                    <tr key={index} className="p-row-even">
-                                                        <td className={`${isMobile ? "td-mobile-mid" : ""}`}>
-                                                            { isMobile && <span className="td-mobile-show td-text-opacity">Fecha <br/></span> }
-                                                            {formatDateDisplay(transaction.created_at)}
-                                                        </td>
-                                                        <td className={`${isMobile ? "td-mobile-mid" : ""}`}>
-                                                            { isMobile && <span className="td-mobile-show td-text-opacity">Monto <br/></span> }
-                                                            {formatBalance(transaction.value || transaction.amount || 0)}
-                                                        </td>
-                                                        <td className={`${isMobile ? "td-mobile-mid" : ""}`}>
-                                                            { isMobile && <span className="td-mobile-show td-text-opacity">Balance Previo <br/></span> }
-                                                            {formatBalance(transaction.value_before) || 0}
-                                                        </td>
-                                                        <td className={`${isMobile ? "td-mobile-mid" : ""}`}>
-                                                            { isMobile && <span className="td-mobile-show td-text-opacity">Balance Posterior <br/></span> }
-                                                            {formatBalance(transaction.value_after) || 0}
-                                                        </td>
+        <div className="container">
+            <div className="row">
+                <div className="col-12">
+                    <div className="wallet-default-container wallet-default-container-single">
+                        <div className="wallet-body">
+                            <div className="wallet-section-body profile-wallet-body">
+                                <div className="title-wallet-body">
+                                    <span>
+                                        <i className="fa fa-history mr-2" aria-hidden="true"></i>
+                                        Historial del Juego
+                                    </span>
+                                </div>
+                                
+                                {loading ? (
+                                    <div className="text-center">
+                                        <LoadApi />
+                                    </div>
+                                ) : (
+                                    <div className="table-container" id="wallet-table-container">
+                                        <div id="wallet-table_wrapper" className="dataTables_wrapper no-footer">
+                                            <div className="dataTables_length d-flex justify-content-between align-items-center" id="wallet-table_length">
+                                                <div>
+                                                    <label>
+                                                        Mostrar
+                                                        <select 
+                                                            className="form-select form-select-sm ms-2 me-2"
+                                                            name="wallet-table_length"
+                                                            value={pagination.length}
+                                                            onChange={handleLengthChange}
+                                                        >
+                                                            <option value="5">5</option>
+                                                            <option value="10">10</option>
+                                                            <option value="20">20</option>
+                                                            <option value="50">50</option>
+                                                        </select>
+                                                        registros
+                                                    </label>
+                                                </div>
+                                            </div>
+                                            
+                                            <table id="wallet-table" className="nowrap dataTable no-footer dtr-inline">
+                                                <thead>
+                                                    <tr>
+                                                        <th className="sorting_disabled">Fecha</th>
+                                                        <th className="sorting_disabled">Monto</th>
+                                                        <th className="sorting_disabled">Balance Previo</th>
+                                                        <th className="sorting_disabled d-sm-table-cell">Balance Posterior</th>
                                                     </tr>
-                                                ))
-                                            }
-                                        </tbody>
-                                    </table> :
-                                    <div className="void-message">
-                                        Nada aquí, nada allá
-                                        <div className="void-mini">
-                                            Actualmente no tienes datos para mostrar
+                                                </thead>
+                                                <tbody>
+                                                    {transactions.length > 0 ? (
+                                                        transactions.map((transaction, index) => (
+                                                            <tr key={transaction.id || index} className="tr">
+                                                                <td>{formatDateDisplay(transaction.created_at)}</td>
+                                                                <td className={parseFloat(transaction.value || transaction.amount || 0) >= 0 ? 'text-success' : 'text-danger'}>
+                                                                    {formatBalance(transaction.value || transaction.amount || 0)}
+                                                                </td>
+                                                                <td>{formatBalance(transaction.value_before)}</td>
+                                                                <td>{formatBalance(transaction.value_after)}</td>
+                                                            </tr>
+                                                        ))
+                                                    ) : (
+                                                        <tr>
+                                                            <td colSpan="4" className="dataTables_empty text-center">
+                                                                No data available in table
+                                                            </td>
+                                                        </tr>
+                                                    )}
+                                                </tbody>
+                                            </table>
+
+                                            {totalPages > 1 && renderPagination()}
                                         </div>
                                     </div>
-                            }
-
-                            {transactions.length > 0 && totalPages > 1 && renderPagination()}
-                        </>
-                    )}
+                                )}
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </>
+        </div>
     );
 };
 

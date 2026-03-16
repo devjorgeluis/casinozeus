@@ -64,7 +64,7 @@ const Sidebar = ({
                                     </a>
                                     <a
                                         onClick={() => {
-                                            navigate("/profile#transaction");
+                                            navigate("/profile/transaction");
                                             onClose && onClose();
                                         }} className="btn btn-theme outline"
                                     >
@@ -73,7 +73,7 @@ const Sidebar = ({
                                     </a>
                                     <a
                                         onClick={() => {
-                                            navigate("/profile#history");
+                                            navigate("/profile/history");
                                             onClose && onClose();
                                         }} className="btn btn-theme outline"
                                     >

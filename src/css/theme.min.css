@@ -54259,7 +54259,6 @@ html.landing-04 {
         calc(100% - 5px) calc(1em - 5px),
         calc(100% - 1.25em) 0.25em;
     margin-inline: 10px;
-    color: #fff;
 }
 
 .wallet-default-container .wallet-body .wallet-section-body .dataTables_wrapper .dataTables_length,
@@ -54282,48 +54281,8 @@ html.landing-04 {
     border-bottom: 1px solid #666;
 }
 
-@media screen and (max-width: 767px) {
-    .wallet-default-container .wallet-body .wallet-section-body table {
-        width: 100%;
-        display: block;
-    }
-}
-
-@media screen and (max-width: 767px) {
-    .wallet-default-container .wallet-body .wallet-section-body table thead {
-        width: 100%;
-        display: block;
-    }
-}
-
-@media screen and (max-width: 767px) {
-    .wallet-default-container .wallet-body .wallet-section-body table thead tr {
-        width: 100%;
-        display: block;
-    }
-}
-
 .wallet-default-container .wallet-body .wallet-section-body table thead tr th {
     border-bottom: 1px solid #666;
-}
-
-@media screen and (max-width: 767px) {
-    .wallet-default-container .wallet-body .wallet-section-body table thead tr th {
-        width: 100% !important;
-        display: none;
-        box-sizing: border-box;
-    }
-
-    .wallet-default-container .wallet-body .wallet-section-body table thead tr th.show-mobile {
-        display: block;
-    }
-}
-
-@media screen and (max-width: 767px) {
-    .wallet-default-container .wallet-body .wallet-section-body table tbody {
-        width: 100%;
-        display: block;
-    }
 }
 
 .wallet-default-container .wallet-body .wallet-section-body table tbody tr {
@@ -54345,29 +54304,7 @@ html.landing-04 {
 }
 
 @media screen and (max-width: 767px) {
-    .wallet-default-container .wallet-body .wallet-section-body table tbody tr {
-        display: flex;
-        justify-content: space-between;
-        width: 100%;
-        overflow: hidden;
-        border-bottom: 1px solid #666;
-    }
-}
-
-@media screen and (max-width: 767px) {
-    .wallet-default-container .wallet-body .wallet-section-body table tbody tr td {
-        box-sizing: border-box;
-        display: block;
-    }
-}
-
-@media screen and (max-width: 767px) {
     .wallet-default-container .wallet-body .wallet-section-body table tbody tr td.msg-table-text {
-        width: 100%;
-        text-align: left;
-        border-bottom: 1px solid rgba(0, 0, 0, 0.05);
-        overflow: hidden;
-        white-space: nowrap;
         text-overflow: ellipsis;
     }
 }

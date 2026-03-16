@@ -62,7 +62,7 @@ const Profile = () => {
                                                 Teléfono móvil
                                             </div>
                                             <div className="col-lg-9">
-                                                {contextData?.session?.user?.phone || ""}
+                                                {contextData?.session?.user?.phone || "-"}
                                             </div>
                                         </div>
                                     </form>
