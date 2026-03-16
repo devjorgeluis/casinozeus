@@ -12,7 +12,8 @@ const Sidebar = ({
     show,
     supportParent,
     handleLogoutClick,
-    openSupportModal
+    openSupportModal,
+    onClose
 }) => {
     const location = useLocation();
     const navigate = useNavigate();
@@ -78,7 +79,10 @@ const Sidebar = ({
                                             <a
                                                 className={"nav-link" + (isActive(item.path) ? " active" : "")}
                                                 style={{ textTransform: "uppercase" }}
-                                                onClick={() => navigate(Array.isArray(item.path) ? item.path[item.path.length - 1] : item.path)}
+                                                onClick={() => {
+                                                    navigate(Array.isArray(item.path) ? item.path[item.path.length - 1] : item.path);
+                                                    onClose && onClose();
+                                                }}
                                             >
                                                 <img src={item.image} className="image-icon mr-1" />
                                                 <span>{item.label}</span>

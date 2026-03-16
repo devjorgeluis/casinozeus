@@ -159,6 +159,7 @@ const Header = ({
                         supportParent={supportParent}
                         handleLogoutClick={handleLogoutClick}
                         openSupportModal={openSupportModal}
+                        onClose={() => setShowSidebar(false)}
                     />
                 }
             </header>

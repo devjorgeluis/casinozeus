@@ -1,6 +1,6 @@
 const LoadApi = () => {
   return (
-    <i class="fa fa-spin fa-spinner"></i>
+    <i className="fa fa-spin fa-spinner"></i>
   );
 };
 
