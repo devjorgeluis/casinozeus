@@ -53,19 +53,39 @@ const Sidebar = ({
                             {
                                 isLogin && 
                                 <div className="sesion-buttons">
-                                    <a onClick={() => navigate("/profile")} className="btn btn-theme outline">
+                                    <a
+                                        onClick={() => {
+                                            navigate("/profile");
+                                            onClose && onClose();
+                                        }} className="btn btn-theme outline"
+                                    >
                                         <i className="fa-solid fa-user"></i>
                                         <span>Profile</span>
                                     </a>
-                                    <a onClick={() => navigate("/profile#transaction")} className="btn btn-theme outline">
+                                    <a
+                                        onClick={() => {
+                                            navigate("/profile#transaction");
+                                            onClose && onClose();
+                                        }} className="btn btn-theme outline"
+                                    >
                                         <i className="fa-solid fa-clock-rotate-left fa-fw"></i>
                                         <span>Transactions</span>
                                     </a>
-                                    <a onClick={() => navigate("/profile#history")} className="btn btn-theme outline">
+                                    <a
+                                        onClick={() => {
+                                            navigate("/profile#history");
+                                            onClose && onClose();
+                                        }} className="btn btn-theme outline"
+                                    >
                                         <i className="fa-solid fa-clock-rotate-left fa-fw"></i>
                                         <span>Historial de cuenta</span>
                                     </a>
-                                    <a onClick={() => handleLogoutClick()} className="btn btn-theme outline">
+                                    <a
+                                        onClick={() => {
+                                            onClose && onClose();
+                                            handleLogoutClick();
+                                        }} className="btn btn-theme outline"
+                                    >
                                         <i className="fa-solid fa-right-from-bracket"></i>
                                         <span>Logout</span>
                                     </a>
