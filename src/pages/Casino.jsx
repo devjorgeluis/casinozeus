@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect, useRef } from "react";
-import { useLocation, useOutletContext, useNavigate } from "react-router-dom";
+import { useLocation, useOutletContext } from "react-router-dom";
 import { AppContext } from "../AppContext";
 import { LayoutContext } from "../components/Layout/LayoutContext";
 import { NavigationContext } from "../components/Layout/NavigationContext";
@@ -37,7 +37,6 @@ const Casino = () => {
   const { isLogin } = useContext(LayoutContext);
   const [showLoginModal, setShowLoginModal] = useState(false);
   const { setShowFullDivLoading } = useContext(NavigationContext);
-  const navigate = useNavigate();
   const [selectedCategoryIndex, setSelectedCategoryIndex] = useState(0);
   const [txtSearch, setTxtSearch] = useState("");
   const [tags, setTags] = useState([]);
@@ -55,7 +54,6 @@ const Casino = () => {
   const [isSingleCategoryView, setIsSingleCategoryView] = useState(false);
   const [isExplicitSingleCategoryView, setIsExplicitSingleCategoryView] =
     useState(false);
-  const [hasMoreGames, setHasMoreGames] = useState(true);
   const [showFilterModal, setShowFilterModal] = useState(false);
   const [isLoadingGames, setIsLoadingGames] = useState(false);
   const refGameModal = useRef();
@@ -179,9 +177,6 @@ const Casino = () => {
         configureImageSrc(result);
         setGames(result.data.categories || []);
         setActiveCategory(tags[tagIndex] || { name: page });
-        setHasMoreGames(
-          result.data.categories && result.data.categories.length === 30,
-        );
         pageCurrent = 1;
       }
 
@@ -342,7 +337,6 @@ const Casino = () => {
 
   const callbackFetchContent = (result) => {
     if (result.status === 500 || result.status === 422) {
-      setHasMoreGames(false);
       setShowFullDivLoading(false);
       setIsLoadingGames(false);
     } else {
@@ -353,7 +347,6 @@ const Casino = () => {
         configureImageSrc(result);
         setGames([...games, ...result.content]);
       }
-      setHasMoreGames(result.content.length === 30);
       pageCurrent += 1;
     }
     setShowFullDivLoading(false);
@@ -564,20 +557,16 @@ const Casino = () => {
 
     if (result.status === 500 || result.status === 422) {
       setGames([]);
-      setHasMoreGames(false);
-      // Optionally show a "no results" message
     } else {
       configureImageSrc(result);
       setGames(result.content || []);
-      setHasMoreGames((result.content || []).length === 30);
-      pageCurrent = 1; // Next loadMore would request page 1
+      pageCurrent = 1;
     }
 
-    // Critical fixes:
-    setIsSingleCategoryView(true); // Show single grid
-    setIsExplicitSingleCategoryView(true); // Ensures correct header and layout
-    setActiveCategory({ name: `Búsqueda: "${txtSearch}"` }); // Optional: better title
-    setSelectedProvider(null); // Clear provider filter if active
+    setIsSingleCategoryView(true);
+    setIsExplicitSingleCategoryView(true);
+    setActiveCategory({ name: `Búsqueda: "${txtSearch}"` });
+    setSelectedProvider(null);
   };
 
   return (
@@ -666,30 +655,41 @@ const Casino = () => {
 
               {selectedProvider || isExplicitSingleCategoryView ? (
                 <>
-                  <div className="AllGames">
-                    {games.map((game) => (
-                      <GameCard
-                        key={game.id}
-                        id={game.id}
-                        provider={activeCategory?.name || "Casino"}
-                        title={game.name}
-                        imageSrc={
-                          game.image_local !== null
-                            ? contextData.cdnUrl + game.image_local
-                            : game.image_url
-                        }
-                        game={game}
-                        mobileShowMore={mobileShowMore}
-                        onGameClick={(g) => {
-                          if (isLogin) {
-                            launchGame(g, "slot", "tab");
-                          } else {
-                            handleLoginClick();
+                  {
+                    games.length > 0 &&
+                    <div className="AllGames">
+                      {games.map((game) => (
+                        <GameCard
+                          key={game.id}
+                          id={game.id}
+                          provider={activeCategory?.name || "Casino"}
+                          title={game.name}
+                          imageSrc={
+                            game.image_local !== null
+                              ? contextData.cdnUrl + game.image_local
+                              : game.image_url
                           }
-                        }}
-                      />
-                    ))}
-                  </div>
+                          game={game}
+                          mobileShowMore={mobileShowMore}
+                          onGameClick={(g) => {
+                            if (isLogin) {
+                              launchGame(g, "slot", "tab");
+                            } else {
+                              handleLoginClick();
+                            }
+                          }}
+                        />
+                      ))}
+                    </div>
+                  }
+
+                  {!isLoadingGames && games.length === 0 && (
+                    <div className="GamesEmptyContainer">
+                      <div className="GamesEmpty">
+                        <span>Sin Juegos</span>
+                      </div>
+                    </div>
+                  )}
 
                   {(isExplicitSingleCategoryView || selectedProvider) &&
                     games.length > 0 && (
@@ -703,31 +703,42 @@ const Casino = () => {
               ) : (
                 <>
                   {isSingleCategoryView ? (
-                    <div className="single-games-grid">
-                      <div className="AllGames">
-                        {games.map((game) => (
-                          <GameCard
-                            key={game.id}
-                            id={game.id}
-                            provider={activeCategory?.name || "Casino"}
-                            title={game.name}
-                            imageSrc={
-                              game.image_local !== null
-                                ? contextData.cdnUrl + game.image_local
-                                : game.image_url
-                            }
-                            game={game}
-                            mobileShowMore={mobileShowMore}
-                            onGameClick={(g) => {
-                              if (isLogin) {
-                                launchGame(g, "slot", "tab");
-                              } else {
-                                handleLoginClick();
+                    <>
+                      {
+                        games.length > 0 &&
+                        <div className="AllGames">
+                          {games.map((game) => (
+                            <GameCard
+                              key={game.id}
+                              id={game.id}
+                              provider={activeCategory?.name || "Casino"}
+                              title={game.name}
+                              imageSrc={
+                                game.image_local !== null
+                                  ? contextData.cdnUrl + game.image_local
+                                  : game.image_url
                               }
-                            }}
-                          />
-                        ))}
-                      </div>
+                              game={game}
+                              mobileShowMore={mobileShowMore}
+                              onGameClick={(g) => {
+                                if (isLogin) {
+                                  launchGame(g, "slot", "tab");
+                                } else {
+                                  handleLoginClick();
+                                }
+                              }}
+                            />
+                          ))}
+                        </div>
+                      }
+
+                      {!isLoadingGames && games.length === 0 && (
+                        <div className="GamesEmptyContainer">
+                          <div className="GamesEmpty">
+                            <span>Sin Juegos</span>
+                          </div>
+                        </div>
+                      )}
 
                       {games.length > 0 && (
                         <div className="btn-footer-sg">
@@ -736,7 +747,7 @@ const Casino = () => {
                           </button>
                         </div>
                       )}
-                    </div>
+                    </>
                   ) : (
                     <>
                       {firstFiveCategoriesGames.map((entry, catIndex) => {

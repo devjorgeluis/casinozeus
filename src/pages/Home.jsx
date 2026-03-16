@@ -51,13 +51,10 @@ const Home = () => {
   const [pageData, setPageData] = useState({});
   const [gameUrl, setGameUrl] = useState("");
   const [isSingleCategoryView, setIsSingleCategoryView] = useState(false);
-  const [isExplicitSingleCategoryView, setIsExplicitSingleCategoryView] =
-    useState(false);
   const [shouldShowGameModal, setShouldShowGameModal] = useState(false);
   const [showFilterModal, setShowFilterModal] = useState(false);
   const [isLoadingGames, setIsLoadingGames] = useState(false);
   const [mobileShowMore, setMobileShowMore] = useState(false);
-  const [hasMoreGames, setHasMoreGames] = useState(true);
   const refGameModal = useRef();
   const pendingPageRef = useRef(new Set());
   const pendingCategoryFetchesRef = useRef(0);
@@ -102,7 +99,6 @@ const Home = () => {
     if (tagIndex !== -1 && selectedCategoryIndex !== tagIndex) {
       setSelectedCategoryIndex(tagIndex);
       setIsSingleCategoryView(false);
-      setIsExplicitSingleCategoryView(false);
       getPage(hashCode);
     }
   }, [location.hash, tags]);
@@ -117,7 +113,6 @@ const Home = () => {
     setShouldShowGameModal(false);
     setActiveCategory({});
     setIsSingleCategoryView(false);
-    setIsExplicitSingleCategoryView(false);
 
     getPage("home");
     getStatus();
@@ -172,7 +167,6 @@ const Home = () => {
     setGames([]);
     setFirstFiveCategoriesGames([]);
     setIsSingleCategoryView(false);
-    setIsExplicitSingleCategoryView(false);
 
     callApi(
       contextData,
@@ -260,7 +254,6 @@ const Home = () => {
             : result.data.categories[0];
         if (categoryToShow) {
           setIsSingleCategoryView(true);
-          setIsExplicitSingleCategoryView(false);
           setActiveCategory(categoryToShow);
           setSelectedCategoryIndex(tagIndex !== -1 ? tagIndex : 0);
           fetchContent(
@@ -275,15 +268,10 @@ const Home = () => {
       }
     } else if (result.data && result.data.page_group_type === "games") {
       setIsSingleCategoryView(true);
-      setIsExplicitSingleCategoryView(false);
       setCategories(mainCategories.length > 0 ? mainCategories : []);
       configureImageSrc(result);
       setGames(result.data.content || result.data.categories || []);
       setActiveCategory(tags[tagIndex] || { name: page });
-      setHasMoreGames(
-        (result.data.content && result.data.content.length === 30) ||
-        (result.data.categories && result.data.categories.length === 30),
-      );
       pageCurrent = 1;
       setShowFullDivLoading(false);
     }
@@ -396,7 +384,6 @@ const Home = () => {
       setMobileShowMore(true);
     }
     setIsSingleCategoryView(true);
-    setIsExplicitSingleCategoryView(true);
     setSelectedCategoryIndex(categoryIndex);
     setActiveCategory(category);
     fetchContent(
@@ -455,7 +442,6 @@ const Home = () => {
 
   const callbackFetchContent = (result) => {
     if (result.status === 500 || result.status === 422) {
-      setHasMoreGames(false);
       setShowFullDivLoading(false);
     } else {
       if (pageCurrent == 0) {
@@ -465,7 +451,6 @@ const Home = () => {
         configureImageSrc(result);
         setGames([...games, ...result.content]);
       }
-      setHasMoreGames(result.content.length === 30);
       pageCurrent += 1;
     }
     setShowFullDivLoading(false);
@@ -527,7 +512,6 @@ const Home = () => {
   const handleProviderSelect = (provider, index = 0) => {
     setSelectedProvider(provider);
     setTxtSearch("");
-    setIsExplicitSingleCategoryView(true);
 
     if (provider) {
       setActiveCategory(null);
@@ -658,7 +642,6 @@ const Home = () => {
                 onCategoryClick={(tag, _id, _table, index) => {
                   setTxtSearch("");
                   setShowFullDivLoading(true);
-                  setIsExplicitSingleCategoryView(false);
                   if (window.location.hash !== `#${tag.code}`) {
                     window.location.hash = `#${tag.code}`;
                     getPage(tag.code);
@@ -730,27 +713,39 @@ const Home = () => {
                   </>
                 ) : isSingleCategoryView ? (
                   <>
-                    <div className="AllGames">
-                      {games.map((game, idx) => (
-                        <GameCard
-                          key={`cat-${selectedCategoryIndex}-${game.id}-${idx}`}
-                          id={game.id}
-                          title={game.name}
-                          text={isLogin ? "Jugar" : "Ingresar"}
-                          imageSrc={
-                            game.image_local !== null
-                              ? contextData.cdnUrl + game.image_local
-                              : game.image_url
-                          }
-                          mobileShowMore={mobileShowMore}
-                          onClick={() =>
-                            isLogin
-                              ? launchGame(game, "slot", "tab")
-                              : handleLoginClick()
-                          }
-                        />
-                      ))}
-                    </div>
+                    {
+                      games.length > 0 &&
+                      <div className="AllGames">
+                        {games.map((game, idx) => (
+                          <GameCard
+                            key={`cat-${selectedCategoryIndex}-${game.id}-${idx}`}
+                            id={game.id}
+                            title={game.name}
+                            text={isLogin ? "Jugar" : "Ingresar"}
+                            imageSrc={
+                              game.image_local !== null
+                                ? contextData.cdnUrl + game.image_local
+                                : game.image_url
+                            }
+                            mobileShowMore={mobileShowMore}
+                            onClick={() =>
+                              isLogin
+                                ? launchGame(game, "slot", "tab")
+                                : handleLoginClick()
+                            }
+                          />
+                        ))}
+                      </div>
+                    }
+
+                    {!isLoadingGames && games.length === 0 && (
+                      <div className="GamesEmptyContainer">
+                        <div className="GamesEmpty">
+                          <span>Sin Juegos</span>
+                        </div>
+                      </div>
+                    )}
+
                     {games.length > 0 && (
                       <div className="btn-footer-sg">
                         <button className="btn btn-theme02" onClick={loadMoreGames}>
@@ -864,7 +859,6 @@ const Home = () => {
                   </div>
                 )}
 
-
                 <ProviderModal
                   isOpen={showFilterModal}
                   onClose={() => setShowFilterModal(false)}
@@ -880,7 +874,6 @@ const Home = () => {
                     } else {
                       setSelectedCategoryIndex(index);
                       setIsSingleCategoryView(false);
-                      setIsExplicitSingleCategoryView(false);
                       getPage(tag.code);
                     }
                   }}

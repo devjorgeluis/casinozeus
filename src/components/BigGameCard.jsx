@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { AppContext } from '../AppContext';
 
-const BigCameCard = (props) => {
+const BigGameCard = (props) => {
     const { contextData } = useContext(AppContext);
 
     const handleGameClick = (e) => {
@@ -38,4 +38,4 @@ const BigCameCard = (props) => {
     );
 };
 
-export default BigCameCard;
+export default BigGameCard;

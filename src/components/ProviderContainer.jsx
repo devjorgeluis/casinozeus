@@ -127,7 +127,7 @@ const ProviderContainer = ({
                                             <div key={idx} className={`provider-item ${isSelected(provider) ? 'Active' : ''}`} onClick={(e) => handleClick(e, provider)}>
                                                 <div className="provider-img">
                                                     {
-                                                        imageUrl ? <img src={imageUrl} alt={provider?.name} /> : <>{provider?.name}</>
+                                                        imageUrl ? <img src={imageUrl} /> : <>{provider?.name}</>
                                                     }
                                                 </div>
                                                 <span className="provider-name">{provider?.name}</span>
@@ -144,11 +144,11 @@ const ProviderContainer = ({
                                         : provider.image_url;
 
                                     return (
-                                        <div className="swiper-slide">
-                                            <div key={idx} className={`provider-item ${isSelected(provider) ? 'Active' : ''}`} onClick={(e) => handleClick(e, provider)}>
+                                        <div key={idx} className="swiper-slide">
+                                            <div className={`provider-item ${isSelected(provider) ? 'Active' : ''}`} onClick={(e) => handleClick(e, provider)}>
                                                 <div className="provider-img">
                                                     {
-                                                        imageUrl ? <img src={imageUrl} alt={provider?.name} /> : <>{provider?.name}</>
+                                                        imageUrl && <img src={imageUrl} />
                                                     }
                                                 </div>
                                                 <span className="provider-name">{provider?.name}</span>

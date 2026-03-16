@@ -6,7 +6,7 @@ import { Grid, Navigation } from "swiper/modules";
 import "swiper/css";
 import 'swiper/css/grid';
 import "swiper/css/navigation";
-import BigCameCard from "../BigCameCard";
+import BigGameCard from "../BigGameCard";
 
 const HotGameSlideshow = ({ games, name, title, onGameClick }) => {
     const { contextData } = useContext(AppContext);
@@ -137,7 +137,7 @@ const HotGameSlideshow = ({ games, name, title, onGameClick }) => {
                                             <SwiperSlide
                                                 key={`hot-${title}-${name}-${game.id ?? index}-${index}`}
                                             >
-                                                <BigCameCard
+                                                <BigGameCard
                                                     id={game.id}
                                                     category="slide"
                                                     provider={title}
@@ -162,7 +162,7 @@ const HotGameSlideshow = ({ games, name, title, onGameClick }) => {
                                             className="swiper-slide"
                                             key={`hot-${title}-${name}-${game.id ?? index}-${index}`}
                                         >
-                                            <BigCameCard
+                                            <BigGameCard
                                                 id={game.id}
                                                 category="slide"
                                                 provider={title}
