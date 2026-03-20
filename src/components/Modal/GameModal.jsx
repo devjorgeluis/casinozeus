@@ -117,7 +117,7 @@ const GameModal = (props) => {
     // Show error message
     const loadingEl = document.getElementById("game-window-loading");
     if (loadingEl) {
-      loadingEl.innerHTML = '<div class="error-message">Error loading game. Please try again.</div>';
+      loadingEl.innerHTML = '<div className="error-message">Error loading game. Please try again.</div>';
     }
   };
 

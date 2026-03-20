@@ -5,27 +5,30 @@ import { Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import ImgBanner1 from "/src/assets/img/banner1.jpg";
-import ImgBanner2 from "/src/assets/img/banner2.png";
-import ImgBanner3 from "/src/assets/img/banner3.jpg";
+import ImgBanner2 from "/src/assets/img/banner2.jpg";
+import ImgBanner3 from "/src/assets/img/banner3.png";
 import ImgBanner4 from "/src/assets/img/banner4.jpg";
 import ImgBanner5 from "/src/assets/img/banner5.jpg";
-import ImgBanner6 from "/src/assets/img/banner6.png";
+import ImgBanner6 from "/src/assets/img/banner6.jpg";
 import ImgBanner7 from "/src/assets/img/banner7.jpg";
 import ImgBanner8 from "/src/assets/img/banner8.png";
 import ImgBanner9 from "/src/assets/img/banner9.png";
 import ImgBanner10 from "/src/assets/img/banner10.jpg";
 import ImgBanner11 from "/src/assets/img/banner11.png";
+import ImgBanner12 from "/src/assets/img/banner12.jpg";
 import ImgMobileBanner1 from "/src/assets/img/mobile-banner1.jpg";
-import ImgMobileBanner2 from "/src/assets/img/mobile-banner2.png";
-import ImgMobileBanner3 from "/src/assets/img/mobile-banner3.jpg";
+import ImgMobileBanner2 from "/src/assets/img/mobile-banner2.jpg";
+import ImgMobileBanner3 from "/src/assets/img/mobile-banner3.png";
 import ImgMobileBanner4 from "/src/assets/img/mobile-banner4.jpg";
 import ImgMobileBanner5 from "/src/assets/img/mobile-banner5.jpg";
-import ImgMobileBanner6 from "/src/assets/img/mobile-banner6.png";
-import ImgMobileBanner7 from "/src/assets/img/mobile-banner7.png";
+import ImgMobileBanner6 from "/src/assets/img/mobile-banner6.jpg";
+import ImgMobileBanner7 from "/src/assets/img/mobile-banner7.jpg";
 import ImgMobileBanner8 from "/src/assets/img/mobile-banner8.png";
-import ImgMobileBanner9 from "/src/assets/img/mobile-banner9.jpg";
-import ImgMobileBanner10 from "/src/assets/img/mobile-banner10.png";
-import ImgMobileBanner11 from "/src/assets/img/mobile-banner11.jpg";
+import ImgMobileBanner9 from "/src/assets/img/mobile-banner9.png";
+import ImgMobileBanner10 from "/src/assets/img/mobile-banner10.jpg";
+import ImgMobileBanner11 from "/src/assets/img/mobile-banner11.png";
+import ImgMobileBanner12 from "/src/assets/img/mobile-banner12.jpg";
+import ImgLogo from "/src/assets/svg/logo.svg";
 
 const Slideshow = () => {
   const swiperRef = useRef(null);
@@ -42,7 +45,8 @@ const Slideshow = () => {
     { id: 7, image: ImgMobileBanner8 },
     { id: 8, image: ImgMobileBanner9 },
     { id: 9, image: ImgMobileBanner10 },
-    { id: 10, image: ImgMobileBanner11 }
+    { id: 10, image: ImgMobileBanner11 },
+    { id: 11, image: ImgMobileBanner12 },
   ] : [
     { id: 0, image: ImgBanner1 },
     { id: 1, image: ImgBanner2 },
@@ -54,7 +58,8 @@ const Slideshow = () => {
     { id: 7, image: ImgBanner8 },
     { id: 8, image: ImgBanner9 },
     { id: 9, image: ImgBanner10 },
-    { id: 10, image: ImgBanner11 }
+    { id: 10, image: ImgBanner11 },
+    { id: 11, image: ImgBanner12 },
   ];
 
   const handleNext = () => {
@@ -95,6 +100,7 @@ const Slideshow = () => {
                   title={`Banner ${slide.id + 1}`}
                   loading="lazy"
                 />
+                <img src={ImgLogo} alt="Site." className="logo-slide"></img>
               </SwiperSlide>
             ))}
           </Swiper>
