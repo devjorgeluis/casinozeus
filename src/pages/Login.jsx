@@ -50,6 +50,7 @@ const Login = () => {
             let body = {
                 username: username,
                 password: password,
+                site_label: "main",
             };
             callApi(
                 contextData,
