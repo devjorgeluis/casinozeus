@@ -119,7 +119,7 @@ const Header = ({
                                             </div> :
                                                 <div className="nav-item nav-items-extra no-login">
                                                     <button className="btn btn-theme outline" onClick={handleLoginClick}>
-                                                        <span>Login</span>
+                                                        <span>Acceder</span>
                                                     </button>
                                                 </div>
                                         }
@@ -139,7 +139,7 @@ const Header = ({
                                         <span className="span-user-info-balance-mobile">${formatBalance(userBalance)}</span>
                                     </div> :
                                         <div className="btn btn-theme outline" onClick={handleLoginClick}>
-                                            <span>Login</span>
+                                            <span>Acceder</span>
                                         </div>
                                 }
                                 <button className="navbar-toggler show-menu-mobile" type="button" onClick={() => setShowSidebar(!showSidebar)}>
