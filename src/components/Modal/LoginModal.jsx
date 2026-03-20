@@ -30,7 +30,7 @@ const LoginModal = ({ isOpen, onClose, onLoginSuccess }) => {
         const body = {
             username: username,
             password: password,
-            site_label: "celuapuestas",
+            site_label: "casinovolcano",
         };
 
         callApi(
