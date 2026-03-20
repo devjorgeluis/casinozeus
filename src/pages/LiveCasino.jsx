@@ -1,5 +1,5 @@
 import { useContext, useState, useEffect, useRef } from "react";
-import { useLocation, useOutletContext } from "react-router-dom";
+import { useLocation, useOutletContext, useNavigate } from "react-router-dom";
 import { AppContext } from "../AppContext";
 import { callApi } from "../utils/Utils";
 import Slideshow from "../components/LiveCasino/Slideshow";
@@ -41,6 +41,7 @@ const LiveCasino = () => {
   const location = useLocation();
   const { isSlotsOnly, isLogin, isMobile } = useOutletContext();
   const searchRef = useRef(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!location.hash || tags.length === 0) return;
@@ -303,11 +304,7 @@ const LiveCasino = () => {
   };
 
   const handleLoginClick = () => {
-    setShowLoginModal(true);
-  };
-
-  const handleLoginConfirm = () => {
-    setShowLoginModal(false);
+    navigate("/login");
   };
 
   const search = (e) => {
@@ -363,13 +360,6 @@ const LiveCasino = () => {
 
   return (
     <>
-      {showLoginModal && (
-        <LoginModal
-          isOpen={showLoginModal}
-          onClose={() => setShowLoginModal(false)}
-          onConfirm={handleLoginConfirm}
-        />
-      )}
       {shouldShowGameModal && selectedGameId !== null ? (
         <GameModal
           gameUrl={gameUrl}
@@ -410,91 +400,91 @@ const LiveCasino = () => {
                 onProviderSelect={handleProviderSelect}
                 onOpenProviders={() => setShowFilterModal(true)}
               />
+            </div>
 
-              <div className="dw-casino-11 showLobby">
-                <div className="SearchContainer desktop-item">
-                  {!isMobile && (
-                    <SearchInput
-                      txtSearch={txtSearch}
-                      setTxtSearch={setTxtSearch}
-                      searchRef={searchRef}
-                      search={search}
-                      isMobile={isMobile}
-                    />
-                  )}
-                </div>
-                {
-                  games.length > 0 &&
-                  <div className="Live-AllGames AllGames">
-                    {games.map((game) => (
-                      <LiveGameCard
-                        key={game.id}
-                        id={game.id}
-                        provider={activeCategory?.name || "Live Casino"}
-                        title={game.name}
-                        imageSrc={
-                          game.image_local !== null
-                            ? contextData.cdnUrl + game.image_local
-                            : game.image_url
-                        }
-                        game={game}
-                        onGameClick={(g) => {
-                          if (isLogin) {
-                            launchGame(g, "slot", "modal");
-                          } else {
-                            handleLoginClick();
-                          }
-                        }}
-                      />
-                    ))}
-                  </div>
-                }
-
-                {!isLoadingGames && games.length === 0 && (
-                  <div className="GamesEmptyContainer">
-                    <div className="GamesEmpty">
-                      <span>Sin Juegos</span>
-                    </div>
-                  </div>
+            <div className="dw-casino-11 showLobby">
+              <div className="SearchContainer desktop-item">
+                {!isMobile && (
+                  <SearchInput
+                    txtSearch={txtSearch}
+                    setTxtSearch={setTxtSearch}
+                    searchRef={searchRef}
+                    search={search}
+                    isMobile={isMobile}
+                  />
                 )}
-
-                {games.length > 0 && (
-                  <div className="btn-footer-sg">
-                    <button className="btn btn-theme02" onClick={loadMoreGames}>
-                      <span>VER MÁS {isLoadingGames && <LoadApi />}</span>
-                    </button>
-                  </div>
-                )}
-
-                <ProviderModal
-                  isOpen={showFilterModal}
-                  onClose={() => setShowFilterModal(false)}
-                  onCategorySelect={(category) => {
-                    handleCategorySelect(category);
-                  }}
-                  onCategoryClick={(tag, _id, _table, index) => {
-                    setTxtSearch("");
-                    setShowFullDivLoading(true);
-                    if (window.location.hash !== `#${tag.code}`) {
-                      window.location.hash = `#${tag.code}`;
-                      getPage(tag.code);
-                    } else {
-                      setSelectedCategoryIndex(index);
-                      setIsSingleCategoryView(false);
-                      setIsExplicitSingleCategoryView(false);
-                      getPage(tag.code);
-                    }
-                  }}
-                  onSelectProvider={(provider) => {
-                    handleProviderSelect(provider);
-                    setShowFilterModal(false);
-                  }}
-                  contextData={contextData}
-                  tags={tags}
-                  categories={categories}
-                  selectedCategoryIndex={selectedCategoryIndex}
-                />
               </div>
+              {
+                games.length > 0 &&
+                <div className="Live-AllGames AllGames">
+                  {games.map((game) => (
+                    <LiveGameCard
+                      key={game.id}
+                      id={game.id}
+                      provider={activeCategory?.name || "Live Casino"}
+                      title={game.name}
+                      imageSrc={
+                        game.image_local !== null
+                          ? contextData.cdnUrl + game.image_local
+                          : game.image_url
+                      }
+                      game={game}
+                      onGameClick={(g) => {
+                        if (isLogin) {
+                          launchGame(g, "slot", "modal");
+                        } else {
+                          handleLoginClick();
+                        }
+                      }}
+                    />
+                  ))}
+                </div>
+              }
+
+              {!isLoadingGames && games.length === 0 && (
+                <div className="GamesEmptyContainer">
+                  <div className="GamesEmpty">
+                    <span>Sin Juegos</span>
+                  </div>
+                </div>
+              )}
+
+              {games.length > 0 && (
+                <div className="btn-footer-sg">
+                  <button className="btn btn-theme02" onClick={loadMoreGames}>
+                    <span>VER MÁS {isLoadingGames && <LoadApi />}</span>
+                  </button>
+                </div>
+              )}
+
+              <ProviderModal
+                isOpen={showFilterModal}
+                onClose={() => setShowFilterModal(false)}
+                onCategorySelect={(category) => {
+                  handleCategorySelect(category);
+                }}
+                onCategoryClick={(tag, _id, _table, index) => {
+                  setTxtSearch("");
+                  setShowFullDivLoading(true);
+                  if (window.location.hash !== `#${tag.code}`) {
+                    window.location.hash = `#${tag.code}`;
+                    getPage(tag.code);
+                  } else {
+                    setSelectedCategoryIndex(index);
+                    setIsSingleCategoryView(false);
+                    setIsExplicitSingleCategoryView(false);
+                    getPage(tag.code);
+                  }
+                }}
+                onSelectProvider={(provider) => {
+                  handleProviderSelect(provider);
+                  setShowFilterModal(false);
+                }}
+                contextData={contextData}
+                tags={tags}
+                categories={categories}
+                selectedCategoryIndex={selectedCategoryIndex}
+              />
             </div>
           </div>
         </>

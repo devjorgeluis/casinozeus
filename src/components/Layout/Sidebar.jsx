@@ -23,6 +23,18 @@ const Sidebar = ({
         window.scrollTo(0, 0);
     }, [location.pathname]);
 
+    useEffect(() => {
+        if (show) {
+            document.body.style.overflow = "hidden";
+        } else {
+            document.body.style.overflow = "unset";
+        }
+        
+        return () => {
+            document.body.style.overflow = "unset";
+        };
+    }, [show]);
+
     const isSlotsOnlyMode = isSlotsOnly === "true" || isSlotsOnly === true;
     const navItems = !isSlotsOnlyMode
         ? [
@@ -139,6 +151,7 @@ const Sidebar = ({
                     }
                 </div>
             </div>
+            <div className="close-menu-mobile"></div>
         </div>
     );
 };
