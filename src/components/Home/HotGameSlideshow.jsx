@@ -80,7 +80,7 @@ const HotGameSlideshow = ({ games, name, title, onGameClick, loadMoreContent }) 
                         </div>
                     </div>
                     {
-                        loadMoreContent && 
+                        loadMoreContent &&
                         <a className="show-more-games-lobby" onClick={loadMoreContent}>
                             <span>Ver todos</span>
                         </a>
@@ -111,78 +111,51 @@ const HotGameSlideshow = ({ games, name, title, onGameClick, loadMoreContent }) 
                             </div>
                         )}
                         <div className="swiper-container swiper-container-initialized swiper-container-horizontal swiper-container-multirow">
-                            {games.length >= 10 ? (
-                                <>
-                                    <Swiper
-                                        ref={swiperRef}
-                                        modules={[Grid, Navigation]}
-                                        grid={{
-                                            rows: 2,
-                                            fill: "row",
-                                        }}
-                                        spaceBetween={10}
-                                        slidesPerView={10}
-                                        breakpoints={{
-                                            320: { slidesPerView: 3 },
-                                            600: { slidesPerView: 5 },
-                                            768: { slidesPerView: 6 },
-                                            1200: { slidesPerView: 10 },
-                                            1500: { slidesPerView: 10 },
-                                        }}
-                                        navigation={{
-                                            prevEl: prevRef.current,
-                                            nextEl: nextRef.current,
-                                        }}
-                                        className="swiper-wrapper"
-                                        onInit={updateNavigationState}
+                            <Swiper
+                                ref={swiperRef}
+                                modules={[Grid, Navigation]}
+                                grid={{
+                                    rows: 2,
+                                    fill: "row",
+                                }}
+                                spaceBetween={10}
+                                slidesPerView={10}
+                                breakpoints={{
+                                    320: { slidesPerView: 3 },
+                                    600: { slidesPerView: 5 },
+                                    768: { slidesPerView: 6 },
+                                    1200: { slidesPerView: 10 },
+                                    1500: { slidesPerView: 10 },
+                                }}
+                                navigation={{
+                                    prevEl: prevRef.current,
+                                    nextEl: nextRef.current,
+                                }}
+                                className="swiper-wrapper"
+                                onInit={updateNavigationState}
+                            >
+                                {games.slice(0, 20)?.map((game, index) => (
+                                    <SwiperSlide
+                                        key={`hot-${title}-${name}-${game.id ?? index}-${index}`}
+                                        className="swiper-slide-container"
                                     >
-                                        {games.slice(0, 20)?.map((game, index) => (
-                                            <SwiperSlide
-                                                key={`hot-${title}-${name}-${game.id ?? index}-${index}`}
-                                            >
-                                                <BigGameCard
-                                                    id={game.id}
-                                                    category="slide"
-                                                    provider={title}
-                                                    title={game.name}
-                                                    imageSrc={
-                                                        game.image_local !== null
-                                                            ? contextData.cdnUrl + game.image_local
-                                                            : game.image_url
-                                                    }
-                                                    onGameClick={() => {
-                                                        handleGameClick(game);
-                                                    }}
-                                                />
-                                            </SwiperSlide>
-                                        ))}
-                                    </Swiper>
-                                </>
-                            ) : (
-                                <div className="swiper-wrapper">
-                                    {games?.map((game, index) => (
-                                        <div
-                                            className="swiper-slide"
-                                            key={`hot-${title}-${name}-${game.id ?? index}-${index}`}
-                                        >
-                                            <BigGameCard
-                                                id={game.id}
-                                                category="slide"
-                                                provider={title}
-                                                title={game.name}
-                                                imageSrc={
-                                                    game.image_local !== null
-                                                        ? contextData.cdnUrl + game.image_local
-                                                        : game.image_url
-                                                }
-                                                onGameClick={() => {
-                                                    handleGameClick(game);
-                                                }}
-                                            />
-                                        </div>
-                                    ))}
-                                </div>
-                            )}
+                                        <BigGameCard
+                                            id={game.id}
+                                            category="slide"
+                                            provider={title}
+                                            title={game.name}
+                                            imageSrc={
+                                                game.image_local !== null
+                                                    ? contextData.cdnUrl + game.image_local
+                                                    : game.image_url
+                                            }
+                                            onGameClick={() => {
+                                                handleGameClick(game);
+                                            }}
+                                        />
+                                    </SwiperSlide>
+                                ))}
+                            </Swiper>
                         </div>
                     </div>
                 </div>
