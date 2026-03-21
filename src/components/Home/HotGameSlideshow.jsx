@@ -15,6 +15,16 @@ const HotGameSlideshow = ({ games, name, title, onGameClick, loadMoreContent }) 
     const nextRef = useRef(null);
     const [isPrevDisabled, setIsPrevDisabled] = useState(true);
     const [isNextDisabled, setIsNextDisabled] = useState(false);
+    const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1200);
+
+    useEffect(() => {
+        const handleResize = () => {
+            setIsDesktop(window.innerWidth >= 1200);
+        };
+
+        window.addEventListener('resize', handleResize);
+        return () => window.removeEventListener('resize', handleResize);
+    }, []);
 
     const handleGameClick = (game, isDemo = false) => {
         if (onGameClick) {
@@ -88,36 +98,36 @@ const HotGameSlideshow = ({ games, name, title, onGameClick, loadMoreContent }) 
                 </div>
                 <div className="dw-home-featured-games">
                     <div className="swiper-featured-games">
-                        {games.length > 10 && (
-                            <div className="swiper-container swiper-container-initialized swiper-container-horizontal swiper-container-multirow swiper-container-android">
-                                <div
-                                    className={`swiper-button-prev ${isPrevDisabled ? "disabled" : ""}`}
-                                    onClick={handlePrev}
-                                    role="button"
-                                    tabIndex={0}
-                                    aria-disabled={isPrevDisabled}
-                                >
-                                    <i aria-hidden="true" className="fa fa-angle-left"></i>
-                                </div>
-                                <div
-                                    className={`swiper-button-next ${isNextDisabled ? "disabled" : ""}`}
-                                    onClick={handleNext}
-                                    role="button"
-                                    tabIndex={0}
-                                    aria-disabled={isNextDisabled}
-                                >
-                                    <i aria-hidden="true" className="fa fa-angle-right"></i>
-                                </div>
+                        <div className="swiper-container swiper-container-initialized swiper-container-horizontal swiper-container-multirow swiper-container-android">
+                            <div
+                                className={`swiper-button-prev ${isPrevDisabled ? "disabled" : ""}`}
+                                onClick={handlePrev}
+                                role="button"
+                                tabIndex={0}
+                                aria-disabled={isPrevDisabled}
+                            >
+                                <i aria-hidden="true" className="fa fa-angle-left"></i>
                             </div>
-                        )}
+                            <div
+                                className={`swiper-button-next ${isNextDisabled ? "disabled" : ""}`}
+                                onClick={handleNext}
+                                role="button"
+                                tabIndex={0}
+                                aria-disabled={isNextDisabled}
+                            >
+                                <i aria-hidden="true" className="fa fa-angle-right"></i>
+                            </div>
+                        </div>
                         <div className="swiper-container swiper-container-initialized swiper-container-horizontal swiper-container-multirow">
                             <Swiper
                                 ref={swiperRef}
                                 modules={[Grid, Navigation]}
-                                grid={{
-                                    rows: 2,
-                                    fill: "row",
-                                }}
+                                {...(isDesktop && {
+                                    grid: {
+                                        rows: 2,
+                                        fill: "row",
+                                    }
+                                })}
                                 spaceBetween={10}
                                 slidesPerView={10}
                                 breakpoints={{
