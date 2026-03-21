@@ -50,7 +50,7 @@ const Login = () => {
             let body = {
                 username: username,
                 password: password,
-                site_label: "casinovolcano",
+                site_label: "ganaencasa",
             };
             callApi(
                 contextData,
