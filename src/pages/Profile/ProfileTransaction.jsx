@@ -239,6 +239,7 @@ const ProfileTransaction = () => {
                                                 <thead>
                                                     <tr>
                                                         <th className="sorting_disabled">Fecha</th>
+                                                        <th className="sorting_disabled">Id</th>
                                                         <th className="sorting_disabled">Monto</th>
                                                         <th className="sorting_disabled">Balance Previo</th>
                                                         <th className="sorting_disabled d-sm-table-cell">Balance Posterior</th>
@@ -249,6 +250,7 @@ const ProfileTransaction = () => {
                                                         transactions.map((transaction, index) => (
                                                             <tr key={transaction.id || index} className="tr">
                                                                 <td>{formatDateDisplay(transaction.created_at)}</td>
+                                                                <td>{transaction.id}</td>
                                                                 <td className={parseFloat(transaction.to_current_balance) < parseFloat(transaction.to_new_balance) ? 'text-success' : 'text-danger'}>
                                                                     {formatBalance(transaction.value || transaction.amount || 0)}
                                                                 </td>
