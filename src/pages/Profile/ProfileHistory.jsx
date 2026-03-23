@@ -240,6 +240,7 @@ const ProfileHistory = () => {
                                                 <thead>
                                                     <tr>
                                                         <th className="sorting_disabled">Fecha</th>
+                                                        <th className="sorting_disabled">Id</th>
                                                         <th className="sorting_disabled">Monto</th>
                                                         <th className="sorting_disabled">Balance Previo</th>
                                                         <th className="sorting_disabled d-sm-table-cell">Balance Posterior</th>
@@ -250,6 +251,7 @@ const ProfileHistory = () => {
                                                         transactions.map((transaction, index) => (
                                                             <tr key={transaction.id || index} className="tr">
                                                                 <td>{formatDateDisplay(transaction.created_at)}</td>
+                                                                <td>{transaction.txn_id}</td>
                                                                 <td className={parseFloat(transaction.value || transaction.amount || 0) >= 0 ? 'text-success' : 'text-danger'}>
                                                                     {formatBalance(transaction.value || transaction.amount || 0)}
                                                                 </td>

@@ -1316,8 +1316,8 @@ img {
     .profile-wallet-body table.dataTable.nowrap th:not(:first-child):not(:nth-last-child(1)):not(:nth-last-child(2)),
     .profile-wallet-body table.dataTable.nowrap td:not(:first-child):not(:nth-last-child(1)):not(:nth-last-child(2)) {
         white-space: pre-line;
-        width: 40%;
-        max-width: 40% !important;
+        width: 30%;
+        max-width: 30% !important;
     }
 }
 
@@ -78297,5 +78297,18 @@ html.landing-04 {
 @media screen and (max-width: 991px) {
     html.html-footer-4 body {
         padding-bottom: 0 !important;
+    }
+
+    .dataTables_wrapper {
+        overflow: auto;
+    }
+
+    table.dataTable tbody td, table.dataTable tbody th,
+    .wallet-default-container .wallet-body .wallet-section-body table thead tr th {
+        font-size: 14px;
+    }
+
+    table.dataTable > thead > tr > td, table.dataTable > thead > tr > th {
+        padding: 0;
     }
 }
